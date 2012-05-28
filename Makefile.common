@@ -1,0 +1,73 @@
+TARGET= pair ngph simplemd simplequench wtg6tonx4a wtg6tomdvw #nph2jx nph2j nph2b
+all: $(TARGET)
+#MAKEDEPEND = gcc -M -MF .depend -I. -IMols -ICell -IInteraction -IIntegrator -ISingleMol 
+MAKEDEPEND= ./mymakedepend
+
+nph2g: PredCorr.o Truncation.o PotVir.o Vector3.o nph2g.o MonatomicMols.o SingleMol.o Interaction.o MolProperty.o
+	$(CPLUSPLUS) $(CCFLAGS) $^ -o $@ $(LDFLAGS)
+nph2ix: PredCorr.cpp Truncation.cpp PotVir.cpp Vector3.cpp nph2i.cpp MonatomicMols.cpp SingleMol.cpp Interaction.cpp MolProperty.cpp PolyatomicMols.cpp MonatomicMols2.o MonatomicMols3.o
+	$(CPLUSPLUS) $(CCFLAGS) $^ -o $@ $(LDFLAGS)
+nph2i: PredCorr.o Truncation.o PotVir.o Vector3.o nph2i.o MonatomicMols.o SingleMol.o Interaction.o MolProperty.o PolyatomicMols.o MonatomicMols2.o MonatomicMols3.o
+	$(CPLUSPLUS) $(CCFLAGS) $^ -o $@ $(LDFLAGS)
+nph2jx: PredCorr.cpp Truncation.cpp PotVir.cpp Vector3.cpp nph2j.cpp SingleMol.cpp Interaction.cpp MolProperty.cpp PolyatomicMols.cpp MonatomicMols3.cpp
+	$(CPLUSPLUS) $(CCFLAGS) $^ -o $@ $(LDFLAGS)
+nph2j: PredCorr.o Truncation.o PotVir.o Vector3.o nph2j.o SingleMol.o Interaction.o MolProperty.o MonatomicMols3.o PolyatomicMols.o
+	$(CPLUSPLUS) $(CCFLAGS) $^ -o $@ $(LDFLAGS)
+nph2kx: PredCorr.cpp Truncation.cpp PotVir.cpp Vector3.cpp nph2k.cpp SingleMol.cpp Interaction.cpp MolProperty.cpp PolyatomicMols.cpp MonatomicMols3.cpp Cell.cpp MolCollection.cpp MonatomicMols2.cpp
+	$(CPLUSPLUS) $(CCFLAGS) $^ -o $@ $(LDFLAGS)
+nph2k: PredCorr.o Truncation.o PotVir.o Vector3.o nph2k.o SingleMol.o Interaction.o MolProperty.o MonatomicMols3.o PolyatomicMols.o Cell.o MolCollection.o MonatomicMols2.o
+	$(CPLUSPLUS) $(CCFLAGS) $^ -o $@ $(LDFLAGS)
+nph2l: PredCorr.o Truncation.o PotVir.o Vector3.o nph2l.o SingleMol.o Interaction.o MolProperty.o PolyatomicMols.o Cell.o MolCollection.o MonatomicMols2.o Unit.o debug.o RigidBodies.o
+	$(CPLUSPLUS) $(CCFLAGS) $^ -o $@ $(LDFLAGS)
+nph2m: nph2m.o Truncation.o PotVir.o Vector3.o Interaction.o MolProperty.o Cell.o MolCollection.o MonatomicMols.o debug.o RigidBodies.o Combination.o ListVector.o GridCell.o Time.o NosePoincare.o RigidBody2.o RigidBodies2.o RigidBody.o PolyatomicMol.o MonatomicMol.o
+	$(CPLUSPLUS) $(CCFLAGS) $^ -o $@ $(LDFLAGS)
+nph2n: nph2n.o Truncation.o PotVir.o Vector3.o Interaction.o MolProperty.o Cell.o MolCollection.o MonatomicMols.o debug.o RigidBodies.o Combination.o ListVector.o GridCell.o Time.o NosePoincare.o RigidBody2.o RigidBodies2.o RigidBody.o PolyatomicMol.o MonatomicMol.o System.o FileIO.o ReplicaSystem.o NVTExchange.o FakeMPI.o LoadBalancer.o SnapShot.o Mols.o StopDrift.o Log.o TReset.o
+	$(CPLUSPLUS) $(CCFLAGS) $^ -o $@ $(LDFLAGS)
+simplemd: main.o Truncation.o PotVir.o Vector3.o Interaction.o MolProperty.o Cell.o MolCollection.o MonatomicMols.o debug.o RigidBodies.o Combination.o ListVector.o GridCell.o Time.o NosePoincare.o RigidBody2.o RigidBodies2.o RigidBody.o PolyatomicMol.o MonatomicMol.o System.o FileIO.o Exchange.o ExchangePT.o FakeMPI.o LoadBalancer.o LoadBalancer2.o SnapShot.o Mols.o StopDrift.o Log.o TReset.o Replica.o Interval.o Terminate.o CPReplica.o NosePoincareAndersen.o NosePoincareMD.o NosePoincareAndersenMD.o CollectorPlugin.o PairProcessPlugin.o Zumbrella.o FixPlugin.o SnapShotOneComp.o
+	$(CPLUSPLUS) $(CCFLAGS) $^ -o $@ $(LDFLAGS)
+simplequench: simplequench.o Truncation.o PotVir.o Vector3.o Interaction.o MolProperty.o Cell.o MolCollection.o MonatomicMols.o debug.o RigidBodies.o Combination.o ListVector.o GridCell.o Time.o NosePoincare.o RigidBody2.o RigidBodies2.o RigidBody.o PolyatomicMol.o MonatomicMol.o System.o FileIO.o Mols.o QuenchSystem.o QuenchSystem2.o Recipe.o  CollectorPlugin.o PairProcessPlugin.o
+	$(CPLUSPLUS) $(CCFLAGS) $^ -o $@ $(LDFLAGS) -lgsl -lgslcblas
+wtg6tonx4a: wtg6tonx4a.o RigidBodies2.o RigidBody2.o Vector3.o MonatomicMol.o RigidBody.o ListVector.o PolyatomicMol.o Interaction.o MolProperty.o Truncation.o MonatomicMols.o PotVir.o RigidBodies.o Mols.o
+	$(CPLUSPLUS) $(CCFLAGS) $^ -o $@ $(LDFLAGS)
+ngph: ngph.o RigidBodies2.o RigidBody2.o Vector3.o MonatomicMol.o RigidBody.o ListVector.o PolyatomicMol.o Interaction.o MolProperty.o Truncation.o MonatomicMols.o PotVir.o RigidBodies.o Mols.o PairProcessPlugin.o FileIO.o Cell.o CollectorPlugin.o GridCell.o MolCollection.o Combination.o PairTool.o
+	$(CPLUSPLUS) $(CCFLAGS) $^ -o $@ $(LDFLAGS)
+pair: pair.o RigidBodies2.o RigidBody2.o Vector3.o MonatomicMol.o RigidBody.o ListVector.o PolyatomicMol.o Interaction.o MolProperty.o Truncation.o MonatomicMols.o PotVir.o RigidBodies.o Mols.o PairProcessPlugin.o FileIO.o Cell.o CollectorPlugin.o GridCell.o MolCollection.o Combination.o PairTool.o
+	$(CPLUSPLUS) $(CCFLAGS) $^ -o $@ $(LDFLAGS)
+wtg6tomdvw: wtg6tomdvw.o RigidBodies2.o RigidBody2.o Vector3.o MonatomicMol.o RigidBody.o ListVector.o PolyatomicMol.o Interaction.o MolProperty.o Truncation.o MonatomicMols.o PotVir.o RigidBodies.o FileIO.o Mols.o
+	$(CPLUSPLUS) $(CCFLAGS) $^ -o $@ $(LDFLAGS)
+nph2mx: nph2m.cpp PredCorr.cpp Truncation.cpp PotVir.cpp Vector3.cpp SingleMol.cpp Interaction.cpp MolProperty.cpp PolyatomicMols.cpp Cell.cpp MolCollection.cpp MonatomicMols2.cpp Unit.cpp debug.cpp RigidBodies.cpp
+	$(CPLUSPLUS) $(CCFLAGS) $^ -o $@ $(LDFLAGS)
+%.o: Cell/%.cpp
+	$(CPLUSPLUS) $(CCFLAGS) -c $<
+%.o: Interaction/%.cpp
+	$(CPLUSPLUS) $(CCFLAGS) -c $<
+%.o: Integrator/%.cpp
+	$(CPLUSPLUS) $(CCFLAGS) -c $<
+%.o: Mols/%.cpp
+	$(CPLUSPLUS) $(CCFLAGS) -c $<
+%.o: SingleMol/%.cpp
+	$(CPLUSPLUS) $(CCFLAGS) -c $<
+%.o: Plugin/%.cpp
+	$(CPLUSPLUS) $(CCFLAGS) -c $<
+%.o: System/%.cpp
+	$(CPLUSPLUS) $(CCFLAGS) -c $<
+.c:
+	$(CC) $(CFLAGS) $< -o $* $(LDFLAGS)
+.cc:
+	$(CPLUSPLUS) $(CCFLAGS) $< -o $* $(LDFLAGS)
+.cpp:
+	$(CPLUSPLUS) $(CCFLAGS) $< -o $* $(LDFLAGS)
+.C:
+	$(CPLUSPLUS) $(CCFLAGS) $< -o $* $(LDFLAGS)
+.cpp.o:
+	$(CPLUSPLUS) $(CCFLAGS) -c $<
+.c.o:
+	$(CC) $(CFLAGS) -c $<
+.o:
+	$(CC) $(CFLAGS) $< -o $* $(LDFLAGS)
+clean:
+	-rm *.o $(TARGET) */*.o *~ */*~
+depend:
+	$(MAKEDEPEND) *.cpp *.hpp */*.cpp */*.hpp > .depend
+
+include .depend
