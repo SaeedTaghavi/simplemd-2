@@ -32,8 +32,8 @@ public:
     return true;
   }
 
-  // forcepatch() is called inside SimpleMD::Force() 
-  virtual void forcepatch()
+  // ForceHook() is called inside SimpleMD::Force() 
+  virtual void ForceHook()
   {
   }
 

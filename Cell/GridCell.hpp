@@ -31,17 +31,25 @@ public:
   explicit GridCell();
   explicit GridCell( const Box& box, int ncompo, int _nx, int _ny, int _nz );
   virtual ~GridCell();
+
+	//Get 
   int GetNumCompo() const;
-  void Set( const int compo, const MolsHandle& mols );
-  //void ScaleVelocity( const Vector3& r );
-  //void ScalePosition( const Vector3& r );
-  void Preforce();
-  void Postforce();
-  int Force( const Combination& combi, const Truncation& rc, PotVir &pv );
   double GetEk() const;
   void GetEkt( Vector3& ekt ) const;
   int GetSize( const int compo ) const;
+  int GetNumCells() const {return nc;};
+  const RelocatableCellHandle& GetCell(const int compo ) const {return cells[compo];};
   double GetMass() const;
+
+	//Set
+  void Set( const int compo, const MolsHandle& mols );
+  //void ScaleVelocity( const Vector3& r );
+  //void ScalePosition( const Vector3& r );
+
+
+  void Preforce();
+  void Postforce();
+  int Force( const Combination& combi, const Truncation& rc, PotVir &pv );
   void ProgressPosition( double );
   void ProgressMomentum( double );
   void Write( const Unit& unit, ostream& to );
@@ -53,6 +61,8 @@ public:
   double* serialize( double* p ) const;
   double* serializeforce( double* xi ) const { assert(0); return xi; }
   int  qdof() const { assert(0); return 0; }
+
+	//Plugins
   void PluginHookL1( CollectorPlugin& plugin );
   int  PairProcess( PairProcessPlugin& p, const Combination& combi, const Truncation& rc ) const;
   void Rescale( const Vector3& r );

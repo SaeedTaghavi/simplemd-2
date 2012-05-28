@@ -6,15 +6,15 @@
 using namespace std;
 
 /*
- *Symplectic Integrator������ؿ���
+ *Symplectic Integratorの補助関数。
  *
- *System.hpp������Ƥ��ޤäƤ�褵����������ʬΥ���Ƥ������ۤ�����갷����������
+ *System.hppに入れてしまってもよさそうだが、分離しておいたほうが取り扱いに便利。
  *
  *
  */
 
 
-//�Ȥꤢ�����Ѿ����ʤ��������Ƥ��ޤ������ʤΤǡ�
+//とりあえず継承しない。壊してしまいそうなので。
 
 class NosePoincareAndersen
 {

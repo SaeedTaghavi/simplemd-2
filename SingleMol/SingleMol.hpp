@@ -10,7 +10,7 @@
 using namespace std;
 using namespace boost;
 
-/*abstract class*/
+/*abstract class; Layer 0*/
 class SingleMolEntity
 {
 public:

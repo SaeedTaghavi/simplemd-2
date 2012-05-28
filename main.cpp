@@ -43,6 +43,7 @@ extern "C" {
 #include "Plugin/CollectorPlugin.hpp"
 #include "Plugin/Zumbrella.hpp"
 #include "Plugin/FixPlugin.hpp"
+#include "Plugin/FixComponentPlugin.hpp"
 #include "FileIO.hpp"
 #include "System/System.hpp"
 #include "System/SimpleMD.hpp"
@@ -470,13 +471,26 @@ public:
 	//cerr << distance << "#" << fconst << endl;
         plugins.push_back( ProcessPluginHandle( new Zumbrella( distance, fconst, current_id08 ) ) );
       }
+/*
       else if ( tag == "@FIXB" )  {
-	//@FIXB is insufficiently implemented @FIXC (not taking constraints into account for temperature calculations.)
-	fgets( buf, sizeof( buf ), input );
-	int isfix = atoi(buf);
-	if ( isfix ){
-	  plugins.push_back( ProcessPluginHandle( new FixPlugin( current_id08 ) ) );
-	}
+				//@FIXB is insufficiently implemented @FIXC (not taking constraints into account for temperature calculations.)
+	//FixPluginを使うと、水2成分のうち片方を固定することができない。成分番号で指定するか、
+				fgets( buf, sizeof( buf ), input );
+				int isfix = atoi(buf);
+				if ( isfix ){
+	  			plugins.push_back( ProcessPluginHandle( new FixPlugin( current_id08 ) ) );
+				}
+      }
+*/
+      else if ( tag == "@FIXc" )  {
+				//@FIXc is insufficiently implemented @FIXC (not taking constraints into account for temperature calculations.)
+				//現在の成分のみを固定。
+				fgets( buf, sizeof( buf ), input );
+				int isfix = atoi(buf);
+				if ( isfix ){
+					//next component will be fixed.
+	  			plugins.push_back( ProcessPluginHandle( new FixComponentPlugin( coordcount+1 ) ) );
+				}
       }
       else if ( tag == "@INNR" ) {
 	fgets( buf, sizeof(buf), input );

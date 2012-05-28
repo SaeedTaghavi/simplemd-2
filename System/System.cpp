@@ -59,7 +59,7 @@ SimpleMD::Force()
   //2010-2-9 added for external field plugins
   int nplugin = plugins.size();
   for( int i=0; i<nplugin; i++ ){
-    plugins[i]->forcepatch();
+    plugins[i]->ForceHook();
   }
 }
 

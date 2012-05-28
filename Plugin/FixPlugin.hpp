@@ -28,7 +28,7 @@ class FixPlugin : public ProcessPlugin
 public:
   explicit FixPlugin( string id08_ ): id08( id08_ ) {};
   void initialize( SimpleMD* sys );
-  void forcepatch();
+  void ForceHook();
   ~FixPlugin()
   {
     cerr << "~Plugin::FixPlugin" << endl;

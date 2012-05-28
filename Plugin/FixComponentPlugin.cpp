@@ -1,7 +1,8 @@
 #include "Plugin/CollectorPlugin.hpp"
 #include "System/SimpleMD.hpp"
-#include "Plugin/FixPlugin.hpp"
+#include "Plugin/FixComponentPlugin.hpp"
 #include "Cell/Cell.hpp"
+#include "Cell/GridCell.hpp"
 #include "Mols/Mols.hpp"
 #include "Mols/MonatomicMols.hpp"
 #include "Mols/RigidBodies.hpp"
@@ -16,19 +17,29 @@
  */
 
 void
-FixHelper::HookL1( Mols* mols )
+FixComponentHelper::HookL2( Cell* cell )
 {
-  MolPropertyHandle property = mols->GetProperty();
-  if ( property->id08 == id08 ){
-    mols->PluginHookL0( *this );
+	//bypass the dig-in mechanism
+	SimpleCell* sch = dynamic_cast<SimpleCell*> ( cell );
+	if ( sch ){
+	  this->HookL1( sch->mols[compo].get() );
+	}
+	else{
+		GridCell* gch = dynamic_cast<GridCell*> ( cell );
+		assert (gch );
+		int nc = gch->GetNumCells();
+	  for( int c=0; c<nc; c++ ){
+			const RelocatableCellHandle rc = gch->GetCell(c);
+		//			/should be called recursively, but failed.
+		  this->HookL1( rc->mols[compo].get() );
+		}
   }
-  //cout << "FixHelper::HookL1" << endl;
+	//	cout << "FixComponentHelper::HookL2 - " << compo << endl;
 }
 
 
-
 void
-FixHelper::HookL0( SingleMolEntity* mol )
+FixComponentHelper::HookL0( SingleMolEntity* mol )
 {
   //Z方向には外力を加え、XY方向は力を消す。
   MonatomicMol* mmh = dynamic_cast<MonatomicMol*> ( mol );
@@ -41,23 +52,22 @@ FixHelper::HookL0( SingleMolEntity* mol )
 		mmh->com.center.force.Set(0,0,0);
 		mmh->torque.Set(0,0,0);
 	}
-	//  cout << "FixHelper::HookL0" << endl;
 }
 
 
 
 void
-FixPlugin::ForceHook()
+FixComponentPlugin::ForceHook()
 {
   //ここで、CollectorPluginを初期化し、使いすてる。
-  FixHelper fixhelper( id08 );
+  FixComponentHelper fixcomponenthelper( compo );
   //cout << ":" << id08 << ":" << endl;
-  fixhelper.HookL3( system->GetMolCollection() );
+  fixcomponenthelper.HookL3( system->GetMolCollection() );
 }
 
 
 void
-FixPlugin::initialize( SimpleMD* sys )
+FixComponentPlugin::initialize( SimpleMD* sys )
 {
   system = sys;
 }
