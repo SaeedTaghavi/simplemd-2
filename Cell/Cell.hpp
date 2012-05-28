@@ -51,7 +51,7 @@ public:
   virtual double* serialize( double* p ) const = 0;
   virtual double* serializeforce( double* xi ) const = 0;
   virtual int  qdof() const = 0;
-  virtual void Execute( CollectorPlugin& plugin ) = 0;
+  virtual void PluginHookL1( CollectorPlugin& plugin ) = 0;
   virtual int  PairProcess( PairProcessPlugin& p, const Combination& combi, const Truncation& rc ) const = 0;
   virtual void Rescale( const Vector3& r ) = 0;
 };
@@ -100,7 +100,7 @@ public:
   double* serializeforce( int compo, double* const xi ) const;
   int  qdof() const;
 
-  void Execute( CollectorPlugin& plugin );
+  void PluginHookL1( CollectorPlugin& plugin );
   int  PairProcess( PairProcessPlugin& p, const Combination& combi, const Truncation& rc ) const;
   virtual double Volume(){ return 1; }
   void Rescale( const Vector3& r );

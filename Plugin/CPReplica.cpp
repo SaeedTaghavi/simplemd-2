@@ -126,7 +126,7 @@ CPReplica::running()
     double s = nosepoincareandersen->S();
     MolCollection* mol = system->GetMolCollection();
     ScaleVelocity2Plugin p( r/s );
-    p.Execute0( mol );
+    p.HookL3( mol );
     //mol->ScaleVelocity( ratio );
     nosepoincareandersen->SetS( 1 );
     //nosepoincareandersen->SetH0( 0 );

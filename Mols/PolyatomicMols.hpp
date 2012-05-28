@@ -80,7 +80,7 @@ public:
   const Vector3& Position( int i ) const;
   void TotalMomentum( Vector3& momentum ) const;
   //void AddVelocity( const Vector3& );
-  void Execute( CollectorPlugin& plugin );
+  void PluginHookL0( CollectorPlugin& plugin );
   //void Concat( const MolsHandle& src );
 private:
   PolyatomicMol* peek1( int i ) const;

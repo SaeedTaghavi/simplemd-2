@@ -32,7 +32,7 @@ my_f (const gsl_vector *v, void *params)
   mol2->unserialize( v->data );
   //MolCollection* m = mol2;
   QDoFPlugin qdof;
-  qdof.Execute0( mol2 );
+  qdof.HookL3( mol2 );
   size_t d = qdof.Result();
   //for(int i=0;i<d;i++)
   //  printf( "%d %f v\n", i, v->data[i] );
@@ -60,7 +60,7 @@ my_df (const gsl_vector *v, void *params,
   mol2->serializeforce( df->data );
   //size_t d = mol2->qdof();
   QDoFPlugin qdof;
-  qdof.Execute0( mol2 );
+  qdof.HookL3( mol2 );
   size_t d = qdof.Result();
   double coeff =sq->GetCoeff();
   //gradientの方向はforceの逆
@@ -81,7 +81,7 @@ my_fdf (const gsl_vector *x, void *params,
   mol2->serializeforce( df->data );
   //size_t d = mol2->qdof();
   QDoFPlugin qdof;
-  qdof.Execute0( mol2 );
+  qdof.HookL3( mol2 );
   size_t d = qdof.Result();
   double coeff =sq->GetCoeff();
   //gradientの方向はforceの逆
@@ -153,7 +153,7 @@ SimpleQuench::initialize()
   //size_t d = 2; //mol2->qdof();
   //size_t d = mol2->qdof();
   QDoFPlugin qdof;
-  qdof.Execute0( mol2 );
+  qdof.HookL3( mol2 );
   size_t d = qdof.Result();
   cout << d << " dof\n";
 

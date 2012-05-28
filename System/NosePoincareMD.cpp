@@ -36,7 +36,7 @@ NosePoincareMD::NosePoincareMD(
   //運動量をスケールしておく。
   double s = nosepoincare->S();
   ScaleVelocity2Plugin p( s );
-  p.Execute0( molecules );
+  p.HookL3( molecules );
   //molecules->ScaleVelocity( ratio );
   
   //力、ポテンシャル、ヴィリアルを計算する。
@@ -150,7 +150,7 @@ NosePoincareMD::terminate()
   //運動量をスケールしておく。
   double s = nosepoincare->S();
   ScaleVelocity2Plugin p( 1.0/s );
-  p.Execute0( molecules );
+  p.HookL3( molecules );
   //molecules->ScaleVelocity( ratio );
   SimpleMD::terminate();
 }

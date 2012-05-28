@@ -1,12 +1,11 @@
 
 .DS_Store
 *.o
+*.sed
 #executables
 simplemd
 simplequench
 pair
 ngph
-
 wtg6tomdvw
-
 wtg6tonx4a

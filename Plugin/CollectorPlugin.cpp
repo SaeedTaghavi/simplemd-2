@@ -8,34 +8,34 @@
 
 
 
-void CollectorPlugin::Execute0( MolCollection* coll )
+void CollectorPlugin::HookL3( MolCollection* coll )
 {
-  coll->Execute( *this );
+  coll->PluginHookL2( *this );
 }
 
 
 
-void CollectorPlugin::Execute1( Cell* cell )
+void CollectorPlugin::HookL2( Cell* cell )
 {
-  cell->Execute( *this );
+  cell->PluginHookL1( *this );
 }
 
 
 
-void CollectorPlugin::Execute2( Mols* mols )
+void CollectorPlugin::HookL1( Mols* mols )
 {
-  mols->Execute( *this );
+  mols->PluginHookL0( *this );
 }
 
 
-void Test::Execute3( SingleMolEntity* mol )
+void Test::HookL0( SingleMolEntity* mol )
 {
   cerr << mol->GetOrder() << " TEST:ORDER" << endl;
 }
 
   
 void
-QDoFPlugin::Execute2( Mols* mols )
+QDoFPlugin::HookL1( Mols* mols )
 {
   MonatomicMols* mmh = dynamic_cast<MonatomicMols*> ( mols );
   if ( mmh ){
@@ -53,7 +53,7 @@ QDoFPlugin::Execute2( Mols* mols )
 
 
 void
-AddVelocityPlugin::Execute3( SingleMolEntity* mol )
+AddVelocityPlugin::HookL0( SingleMolEntity* mol )
 {
   mol->AddVelocity( velocity );
 }
@@ -61,7 +61,7 @@ AddVelocityPlugin::Execute3( SingleMolEntity* mol )
 
 
 void
-ScaleVelocityPlugin::Execute3( SingleMolEntity* mol )
+ScaleVelocityPlugin::HookL0( SingleMolEntity* mol )
 {
   mol->ScaleVelocity( ratio );
 }
@@ -69,7 +69,7 @@ ScaleVelocityPlugin::Execute3( SingleMolEntity* mol )
 
 
 void
-ScaleVelocity2Plugin::Execute3( SingleMolEntity* mol )
+ScaleVelocity2Plugin::HookL0( SingleMolEntity* mol )
 {
   mol->ScaleVelocity( ratio );
 }
@@ -78,7 +78,7 @@ ScaleVelocity2Plugin::Execute3( SingleMolEntity* mol )
 
 
 void
-ScalePositionPlugin::Execute3( SingleMolEntity* mol )
+ScalePositionPlugin::HookL0( SingleMolEntity* mol )
 {
   mol->ScalePosition( ratio );
 }
@@ -87,7 +87,7 @@ ScalePositionPlugin::Execute3( SingleMolEntity* mol )
 
 /*
 void
-SerializePlugin::Execute( SingleMolEntity* mol )
+SerializePlugin::Hook( SingleMolEntity* mol )
 {
   MonatomicMols* mmh = dynamic_cast<MonatomicMol*> ( mol );
   if ( mmh ){

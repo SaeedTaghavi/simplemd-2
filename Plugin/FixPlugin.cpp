@@ -15,14 +15,14 @@
  */
 
 void
-FixHelper::Execute2( Mols* mols )
+FixHelper::HookL1( Mols* mols )
 {
   MolPropertyHandle property = mols->GetProperty();
   if ( property->id08 == id08 ){
     MonatomicMols* mmh = dynamic_cast<MonatomicMols*> ( mols );
     assert( mmh );
     //id08が一致する場合に限り、下位を呼びだす。
-    mols->Execute( *this );
+    mols->PluginHookL0( *this );
   }
   //それ以外の場合は下位に降りない。
 }
@@ -30,7 +30,7 @@ FixHelper::Execute2( Mols* mols )
 
 
 void
-FixHelper::Execute3( SingleMolEntity* mol )
+FixHelper::HookL0( SingleMolEntity* mol )
 {
   //Z方向には外力を加え、XY方向は力を消す。
   MonatomicMol* mmh = dynamic_cast<MonatomicMol*> ( mol );
@@ -45,7 +45,7 @@ FixPlugin::forcepatch()
 {
   //ここで、CollectorPluginを初期化し、使いすてる。
   FixHelper fixhelper( id08 );
-  fixhelper.Execute0( system->GetMolCollection() );
+  fixhelper.HookL3( system->GetMolCollection() );
 }
 
 

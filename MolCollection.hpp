@@ -51,7 +51,7 @@ public:
   void Write( const Unit& unit, double dt, ostream& to );
   void SnapShot( const Unit& unit, double dt, ostream& to );
   void StopDrift();
-  void Execute( CollectorPlugin& plugin );
+  void PluginHookL2( CollectorPlugin& plugin );
   int  PairProcess( PairProcessPlugin& p, const Truncation& rc ) const;
   //for test
   //void AddVelocity( const Vector3& v ){ cell->AddVelocity( v ); }

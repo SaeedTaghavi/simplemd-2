@@ -46,7 +46,7 @@ GridCell::GridCell( const Box& box, int ncompo, int nx0, int ny0, int nz0 ) : bo
 	o.y = iy * box.y / ny;
 	o.z = iz * box.z / nz;
 	if ( isSemiperiodic ){
-	  //����μ������Τ�PBC�ʥ���򰷤�����SemiperiodicBox�ˤ��롣
+	  //特定の軸方向のみPBCなセルを扱う場合はSemiperiodicBoxにする。
 	  SemiperiodicBox smallbox(isP);
 	  smallbox.Set( box.x / nx, box.y / ny, box.z / nz );
 	  cells.push_back( RelocatableCellHandle( new RelocatableCell( smallbox, ncompo, o ) ) );
@@ -76,7 +76,7 @@ GridCell::GridCell( const Box& box, int ncompo, int nx0, int ny0, int nz0 ) : bo
 	//int p = (zz*ny+yy)*nx+xx;
 	Vector3 o;
 
-	//o���٤Υ��뤫�鸫�������Υ���ΰ��֡�������?
+	//oは隣のセルから見た、今のセルの位置。ええんか?
 	o.x = -x * box.x / nx;
 	o.y = -y * box.y / ny;
 	o.z = -z * box.z / nz;
@@ -188,7 +188,7 @@ void GridCell::ScaleRelativeCellVectors( const Vector3& r )
   for( int i=0; i<ndelta0; i++ ){
     offset0[i].Scale( r );
   }
-  //Ȣ����ɸ�����Х���٥��ȥ�򤽤줾��ۤʤ���ˡ�ǥ������뤷�Ƥ��롣r�Ϥ�Ȥ��1����ۤ�Τ鷺���������ʤ����ͤʤΤǡ����줾����ѿ��ؤθ��������ѤΤ��������ۤʤ뤫�⤷��ʤ���
+  //箱、座標、相対セルベクトルをそれぞれ異なる方法でスケールしている。rはもともと1からほんのわずかしか違わない数値なので、それぞれの変数への誤差の累積のしかたが異なるかもしれない。
 }
 
 
@@ -369,8 +369,8 @@ void GridCell::relocate()
           //cout << mol->GetOrder() << "\n";
 	  //position must be in box coordinate
           //!!! it is not correct when the cell is semiperiodic.
-          ///���Ȥ����������˥����ץ�ʾ��ˤϤ���Ϥޤ���!!!
-          ///�����������ΤȤ����������������Ȥ�ͽ��Ϥʤ���
+          ///外枠が特定方向にオープンな場合にはこれはまずい!!!
+          ///しかし、今のところそういうセルを使う予定はない。
 	  if ( position.x < 0 ) offset.x = boundary->x;
 	  if ( position.y < 0 ) offset.y = boundary->y;
 	  if ( position.z < 0 ) offset.z = boundary->z;
@@ -451,7 +451,7 @@ MolsHandle
 GridCell::PullAll( const int compo )
 {
   MolsHandle mh = cells[0]->mols[compo]->EmptyClone();
-  //���ꤢ�碌�δؿ������Ǻ�äƤߤ롣
+  //ありあわせの関数だけで作ってみる。
   for( int c=0; c<nc; c++ ){
     mh->Concat( cells[c]->PullAll( compo ) );
   }
@@ -464,7 +464,7 @@ MolsHandle
 GridCell::CopyAll( const int compo )
 {
   MolsHandle mh = cells[0]->mols[compo]->EmptyClone();
-  //���ꤢ�碌�δؿ������Ǻ�äƤߤ롣
+  //ありあわせの関数だけで作ってみる。
   for( int c=0; c<nc; c++ ){
     MolsHandle tmp = cells[c]->CopyAll( compo );
     tmp->Translate( cells[c]->GetOrigin() );
@@ -500,10 +500,10 @@ void GridCell::AddVelocity( const Vector3& velocity )
 
 
 
-void GridCell::Execute( CollectorPlugin& plugin )
+void GridCell::PluginHookL1( CollectorPlugin& plugin )
 {
   for( int c=0; c<nc; c++ ){
-    cells[c]->Execute( plugin );
+    cells[c]->PluginHookL1( plugin );
   }
 }
 
@@ -511,25 +511,25 @@ void GridCell::Execute( CollectorPlugin& plugin )
 
 void GridCell::Rescale( const Vector3& r )
 {
-  // GridCell�γ��Ȥ򥹥����뤹�롣
+  // GridCellの外枠をスケールする。
   boundary->Scale( r );
-  // ��ξ�Ȣ�򥹥����뤹�롣
+  // 中の小箱をスケールする。
   for( int i=0; i<nc; i++ ){
       cells[i]->Rescale( r );
   }
-  //���а��֥٥��ȥ�򥹥����뤹�롣
+  //相対位置ベクトルをスケールする。
   ScaleRelativeCellVectors( r );
-  //Ȣ����ɸ�����Х���٥��ȥ�򤽤줾��ۤʤ���ˡ�ǥ������뤷�Ƥ��롣r�Ϥ�Ȥ��1����ۤ�Τ鷺���������ʤ����ͤʤΤǡ����줾����ѿ��ؤθ��������ѤΤ��������ۤʤ뤫�⤷��ʤ���
+  //箱、座標、相対セルベクトルをそれぞれ異なる方法でスケールしている。rはもともと1からほんのわずかしか違わない数値なので、それぞれの変数への誤差の累積のしかたが異なるかもしれない。
 }
 
 
 
-//��ɸ����Ф����ݥ��󥿤κ�������˽��֤�����롣
+//座標を抽出し、ポインタの差すメモリに順番に入れる。
 double*
 GridCell::serialize( double* p ) const
 {
-  //�礭����������Ū�˽���������ö������serialize���Ƥ�餦��
-  //��ʬ���ȤˤޤȤ��ɬ�פ�����Τ�����GridCell������ʬ�ϸ����ʤ��ΤǤ�?
+  //大きめの配列を一時的に準備し、一旦そこにserializeしてもらう。
+  //成分ごとにまとめる必要があるのだが、GridCellから成分は見えないのでは?
   assert(0);
   /*
   double tmp[];

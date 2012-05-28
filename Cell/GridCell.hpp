@@ -53,7 +53,7 @@ public:
   double* serialize( double* p ) const;
   double* serializeforce( double* xi ) const { assert(0); return xi; }
   int  qdof() const { assert(0); return 0; }
-  void Execute( CollectorPlugin& plugin );
+  void PluginHookL1( CollectorPlugin& plugin );
   int  PairProcess( PairProcessPlugin& p, const Combination& combi, const Truncation& rc ) const;
   void Rescale( const Vector3& r );
 private:

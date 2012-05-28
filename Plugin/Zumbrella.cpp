@@ -10,11 +10,11 @@
 
 /*
  *This plugin is called from Zumbrella.
- *¤¦¤ó¤É¤¦¤Ë¤³¤¦¤½¤¯¤ò¤¢¤¿¤¨¤ë¤Î¤Ç¡¢¤ª¤ó¤É¤Î¤±¤¤¤µ¤ó¤Ë¤¨¤¤¤­¤ç¤¦¤¹¤ë¤Ï¤º¡£¤¤¤Ş¤Ï¤ª¤ó¤É¤Î¤Û¤»¤¤¤Ï¤ª¤³¤Ê¤ï¤Ê¤¤¡£
+ *ã†ã‚“ã©ã†ã«ã“ã†ããã‚’ã‚ãŸãˆã‚‹ã®ã§ã€ãŠã‚“ã©ã®ã‘ã„ã•ã‚“ã«ãˆã„ãã‚‡ã†ã™ã‚‹ã¯ãšã€‚ã„ã¾ã¯ãŠã‚“ã©ã®ã»ã›ã„ã¯ãŠã“ãªã‚ãªã„ã€‚
  */
 
 void
-ZumbrellaHelper::Execute2( Mols* mols )
+ZumbrellaHelper::HookL1( Mols* mols )
 {
   MolPropertyHandle property = mols->GetProperty();
   if ( property->id08 == id08 ){
@@ -22,18 +22,18 @@ ZumbrellaHelper::Execute2( Mols* mols )
     assert( mmh );
     int nmol = mols->Size();
     assert( nmol == 1 );
-    //Ã±¸¶»ÒÊ¬»Ò¤Ç¡¢¤·¤«¤âid08¤¬°ìÃ×¤¹¤ë¾ì¹ç¤Ë¸Â¤ê¡¢²¼°Ì¤ò¸Æ¤Ó¤À¤¹¡£
-    mols->Execute( *this );
+    //å˜åŸå­åˆ†å­ã§ã€ã—ã‹ã‚‚id08ãŒä¸€è‡´ã™ã‚‹å ´åˆã«é™ã‚Šã€ä¸‹ä½ã‚’å‘¼ã³ã ã™ã€‚
+    mols->PluginHookL0( *this );
   }
-  //¤½¤ì°Ê³°¤Î¾ì¹ç¤Ï²¼°Ì¤Ë¹ß¤ê¤Ê¤¤¡£
+  //ãã‚Œä»¥å¤–ã®å ´åˆã¯ä¸‹ä½ã«é™ã‚Šãªã„ã€‚
 }
 
 
 
 void
-ZumbrellaHelper::Execute3( SingleMolEntity* mol )
+ZumbrellaHelper::HookL0( SingleMolEntity* mol )
 {
-  //ZÊı¸ş¤Ë¤Ï³°ÎÏ¤ò²Ã¤¨¡¢XYÊı¸ş¤ÏÎÏ¤ò¾Ã¤¹¡£
+  //Zæ–¹å‘ã«ã¯å¤–åŠ›ã‚’åŠ ãˆã€XYæ–¹å‘ã¯åŠ›ã‚’æ¶ˆã™ã€‚
   MonatomicMol* mmh = dynamic_cast<MonatomicMol*> ( mol );
   //This test is unnecessary.
   if ( mmh ){
@@ -52,9 +52,9 @@ Zumbrella::Zumbrella( double distance_, double fconst_, string id08_ ) : distanc
 void
 Zumbrella::forcepatch()
 {
-  //¤³¤³¤Ç¡¢CollectorPlugin¤ò½é´ü²½¤·¡¢»È¤¤¤¹¤Æ¤ë¡£
+  //ã“ã“ã§ã€CollectorPluginã‚’åˆæœŸåŒ–ã—ã€ä½¿ã„ã™ã¦ã‚‹ã€‚
   ZumbrellaHelper zumb( distance, fconst, id08 );
-  zumb.Execute0( system->GetMolCollection() );
+  zumb.HookL3( system->GetMolCollection() );
 }
 
 

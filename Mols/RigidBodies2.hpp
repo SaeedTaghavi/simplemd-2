@@ -80,7 +80,7 @@ public:
   void TotalMomentum( Vector3& momentum ) const;
   //void AddVelocity( const Vector3& velocity );
   //void Concat( const MolsHandle& src );
-  void Execute( CollectorPlugin& plugin );
+  void PluginHookL0( CollectorPlugin& plugin );
 
   //I/O
   void Write( const Unit& unit, ostream& to );

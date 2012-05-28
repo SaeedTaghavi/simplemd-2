@@ -85,7 +85,7 @@ public:
   void TotalMomentum( Vector3& momentum ) const;
   //void AddVelocity( const Vector3& velocity );
   //void Concat( const MolsHandle& src );
-  void Execute( CollectorPlugin& plugin );
+  void PluginHookL0( CollectorPlugin& plugin );
 
   //Serialize/Unserialize configurations of all components.
   virtual double* unserialize( double* const p );

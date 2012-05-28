@@ -4,7 +4,7 @@
 
 
 /*
- * CollectorPluginは、MolCollection -> Cell -> Mols -> SingleMolへと階層を下降しながら、指定された処理を実行するプラグイン。実行したい階層のExecute*()をオーバーライドする。
+ * CollectorPluginは、MolCollection -> Cell -> Mols -> SingleMolへと階層を下降しながら、指定された処理を実行するプラグイン。実行したい階層のDo*()をオーバーライドする。
 
  実行順序は保証されない。分子番号順に何かを実行させたい場合は別のPluginクラスを利用する。
 
@@ -23,18 +23,18 @@ class SingleMolEntity;
 
 class CollectorPlugin{
 public:
-  virtual void Execute0( MolCollection* coll );
-  virtual void Execute1( Cell* cell );
-  virtual void Execute2( Mols* mols );
-  virtual void Execute3( SingleMolEntity* mol ) = 0;
-  //virtual void Execute( MonatomicMols* mols ) = 0;
+  virtual void HookL3( MolCollection* coll );
+  virtual void HookL2( Cell* cell );
+  virtual void HookL1( Mols* mols );
+  virtual void HookL0( SingleMolEntity* mol ) = 0;
+  //virtual void Hook( MonatomicMols* mols ) = 0;
 };
 
 
 
 class Test: public CollectorPlugin{
 public:
-  void Execute3( SingleMolEntity* mol );
+  void HookL0( SingleMolEntity* mol );
 };
 
 
@@ -44,8 +44,8 @@ class QDoFPlugin: public CollectorPlugin{
   int dof;
 public:
   QDoFPlugin(): dof(0) {}
-  void Execute2( Mols* mol );
-  void Execute3( SingleMolEntity* mol ){}
+  void HookL1( Mols* mol );
+  void HookL0( SingleMolEntity* mol ){}
   int Result(){ return dof; }
 };
 
@@ -56,7 +56,7 @@ class AddVelocityPlugin: public CollectorPlugin{
   Vector3 velocity;
 public:
   AddVelocityPlugin( const Vector3& v ) : velocity(v) {}
-  void Execute3( SingleMolEntity* mol );
+  void HookL0( SingleMolEntity* mol );
   virtual ~AddVelocityPlugin(){}
 };
 
@@ -66,7 +66,7 @@ class ScaleVelocityPlugin: public CollectorPlugin{
   Vector3 ratio;
 public:
   ScaleVelocityPlugin( const Vector3& r ) : ratio(r) {}
-  void Execute3( SingleMolEntity* mol );
+  void HookL0( SingleMolEntity* mol );
   virtual ~ScaleVelocityPlugin(){}
 };
 
@@ -76,7 +76,7 @@ class ScaleVelocity2Plugin: public CollectorPlugin{
   double ratio;
 public:
   ScaleVelocity2Plugin( double r ) : ratio(r) {}
-  void Execute3( SingleMolEntity* mol );
+  void HookL0( SingleMolEntity* mol );
   virtual ~ScaleVelocity2Plugin(){}
 };
 
@@ -86,7 +86,7 @@ class ScalePositionPlugin: public CollectorPlugin{
   Vector3 ratio;
 public:
   ScalePositionPlugin( const Vector3& r ) : ratio(r) {}
-  void Execute3( SingleMolEntity* mol );
+  void HookL0( SingleMolEntity* mol );
   virtual ~ScalePositionPlugin(){}
 };
 
@@ -101,7 +101,7 @@ class SerializePlugin: public CollectorPlugin{
   double* p;
 public:
   QDoFPlugin( double* p0 ): p(p0) {}
-  void Execute( SingleMolEntity* mol );
+  void Hook( SingleMolEntity* mol );
 };
 */
 

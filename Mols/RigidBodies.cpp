@@ -1392,11 +1392,11 @@ RigidBodies::AddVelocity( const Vector3& velocity )
 
 
 
-void RigidBodies::Execute( CollectorPlugin& plugin )
+void RigidBodies::PluginHookL0( CollectorPlugin& plugin )
 {
   int nmol = mols.size();
   for(int i=0; i<nmol; i++)
-    plugin.Execute3( &mols[i] );
+    plugin.HookL0( &mols[i] );
 }
 
 

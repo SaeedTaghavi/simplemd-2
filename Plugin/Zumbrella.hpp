@@ -18,8 +18,8 @@ class ZumbrellaHelper : public CollectorPlugin{
 public:
   ZumbrellaHelper( double distance_, double fconst_, string id08_ ) :
     distance( distance_ ), fconst( fconst_ ), id08( id08_ ) {};
-  void Execute2( Mols* mols );
-  void Execute3( SingleMolEntity* mol );
+  void HookL1( Mols* mols );
+  void HookL0( SingleMolEntity* mol );
 };
 
 

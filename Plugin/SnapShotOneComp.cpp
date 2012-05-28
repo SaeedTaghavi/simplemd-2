@@ -7,14 +7,14 @@ class SnapShotOneCompHelper : public CollectorPlugin{
   SimpleMD& system;
 public:
   SnapShotOneCompHelper( SimpleMD& system_, string id08_ ) : id08( id08_ ), system(system_) {};
-  void Execute2( Mols* mols );
-  void Execute3( SingleMolEntity* mol );
+  void HookL1( Mols* mols );
+  void HookL0( SingleMolEntity* mol );
 };
 
 
 
 void
-SnapShotOneCompHelper::Execute2( Mols* mols )
+SnapShotOneCompHelper::HookL1( Mols* mols )
 {
   MolPropertyHandle property = mols->GetProperty();
   if ( property->id08 == id08 ){
@@ -27,7 +27,7 @@ SnapShotOneCompHelper::Execute2( Mols* mols )
 
 
 void
-SnapShotOneCompHelper::Execute3( SingleMolEntity* mol )
+SnapShotOneCompHelper::HookL0( SingleMolEntity* mol )
 {
 }
 
@@ -61,6 +61,6 @@ SnapShotOneComp::running()
 {
   //ここで、CollectorPluginを初期化し、使いすてる。
   SnapShotOneCompHelper helper( *system, id08 );
-  helper.Execute0( system->GetMolCollection() );
+  helper.HookL3( system->GetMolCollection() );
   return true;
 }

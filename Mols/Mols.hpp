@@ -87,7 +87,7 @@ public:
   virtual void ProgressMomentum( double dt ) = 0;
   virtual const Vector3& Position( int i ) const = 0;
   virtual void Translate( const Vector3& offset ) = 0;
-  virtual void Execute( CollectorPlugin& plugin ) = 0;
+  virtual void PluginHookL0( CollectorPlugin& plugin ) = 0;
 
   //could be plugin
   virtual void TotalMomentum( Vector3& momentum ) const = 0;

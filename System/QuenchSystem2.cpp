@@ -36,7 +36,7 @@ my_f (double* vm)
   mol2->serialize( v );
   //size_t d = mol2->qdof();
   QDoFPlugin qdof;
-  qdof.Execute0( mol2 );
+  qdof.HookL3( mol2 );
   size_t d = qdof.Result();
   //for(int i=0;i<d;i++)
   //  printf( "%d %f v\n", i, v->data[i] );
@@ -67,7 +67,7 @@ my_df (double* vm, double* dfm)
   mol2->serializeforce( df );
   //size_t d = mol2->qdof();
   QDoFPlugin qdof;
-  qdof.Execute0( mol2 );
+  qdof.HookL3( mol2 );
   size_t d = qdof.Result();
   //gradientの方向はforceの逆
   double coeff = sq->GetCoeff();
@@ -99,7 +99,7 @@ SimpleQuench2::initialize()
   //size_t d = 2; //mol2->qdof();
   //size_t d = mol2->qdof();
   QDoFPlugin qdof;
-  qdof.Execute0( mol2 );
+  qdof.HookL3( mol2 );
   size_t d = qdof.Result();
   cerr << d << " dof\n";
 

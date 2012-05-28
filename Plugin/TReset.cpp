@@ -24,7 +24,7 @@ TReset::running()
   double r  = sqrt( bathTemp / system->Temperature( ek ) );
   Vector3 ratio( r, r, r );
   ScaleVelocityPlugin p( ratio );
-  p.Execute0( mol );
+  p.HookL3( mol );
   //mol->ScaleVelocity( ratio );
   return true;
 }

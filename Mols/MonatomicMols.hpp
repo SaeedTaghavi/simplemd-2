@@ -80,7 +80,7 @@ public:
   void TotalMomentum( Vector3& momentum ) const;
   //void AddVelocity( const Vector3& );
   //void Concat( const MolsHandle& src );
-  void Execute( CollectorPlugin& plugin );
+  void PluginHookL0( CollectorPlugin& plugin );
     
   //たぶんMols.cppに一括してしまえると思う。
   //Serialize/Unserialize configurations of all components.

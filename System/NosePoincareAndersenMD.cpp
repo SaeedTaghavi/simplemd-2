@@ -37,7 +37,7 @@ NosePoincareAndersenMD::NosePoincareAndersenMD(
   double ek = GetEk();
   double s = npa.S();
   ScaleVelocity2Plugin p( s );
-  p.Execute0( molecules );
+  p.HookL3( molecules );
   
   //力、ポテンシャル、ヴィリアルを計算する。
   //ポテンシャルはsに影響されていないことを確認。2006-5-22
@@ -60,7 +60,7 @@ NosePoincareAndersenMD::NosePoincareAndersenMD(
     double deltaH0 = H0 - instantH0;
     double ss = sqrt( ( deltaH0 + ek ) / ek );
     ScaleVelocity2Plugin p( ss );
-    p.Execute0( molecules );
+    p.HookL3( molecules );
     npa.SetH0( H0 );
   }    
 }
@@ -281,7 +281,7 @@ NosePoincareAndersenMD::terminate()
   //この方法だと、ランの途中で速度をwriteできない。writeそのものに、sでスケールする処理を組込まなければいけない。さらに、現在のコードでは集約とソートが必要になるので非常に中途出力処理が重い。order付きの座標出力を作るべき。
   double s = nosepoincareandersen->S();
   ScaleVelocity2Plugin p( 1.0/s );
-  p.Execute0( molecules );
+  p.HookL3( molecules );
   //molecules->ScaleVelocity( ratio );
   SimpleMD::terminate();
 }

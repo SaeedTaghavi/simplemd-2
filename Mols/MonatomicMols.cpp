@@ -1170,11 +1170,11 @@ MonatomicMols::Position( int i ) const
 }
 
 
-void MonatomicMols::Execute( CollectorPlugin& plugin )
+void MonatomicMols::PluginHookL0( CollectorPlugin& plugin )
 {
   int nmol = mols.size();
   for(int i=0; i<nmol; i++)
-    plugin.Execute3( &mols[i] );
+    plugin.HookL0( &mols[i] );
 }
 
 

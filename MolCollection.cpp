@@ -94,7 +94,7 @@ void
 MolCollection::ScaleVelocity( const Vector3& r )
 {
   ScaleVelocityPlugin p( r );
-  p.Execute1( cell );
+  p.Hook1( cell );
   //cell->ScaleVelocity( r );
 }
 */
@@ -107,7 +107,7 @@ MolCollection::Expand( const Vector3& r )
   Vector3 ri( 1/r.x, 1/r.y, 1/r.z );
   ScaleVelocityPlugin p( ri );
   //cell->ScaleVelocity( ri );
-  p.Execute1( cell );
+  p.HookL2( cell );
   //cell->ScalePosition( r );
 
   //座標の拡張
@@ -205,15 +205,15 @@ void MolCollection::StopDrift()
 
   //Add vecoloty to all molecules via plugin.
   AddVelocityPlugin p( momentum );
-  p.Execute1( cell );
+  p.HookL2( cell );
 }
 
 
 
 void
-MolCollection::Execute( CollectorPlugin& plugin )
+MolCollection::PluginHookL2( CollectorPlugin& plugin )
 {
-  plugin.Execute1( cell );
+  plugin.HookL2( cell );
 }
 
 

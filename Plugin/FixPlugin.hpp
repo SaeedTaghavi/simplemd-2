@@ -16,8 +16,8 @@ class FixHelper : public CollectorPlugin{
   string id08;
 public:
   FixHelper( string id08_ ) : id08( id08_ ) {};
-  void Execute2( Mols* mols );
-  void Execute3( SingleMolEntity* mol );
+  void HookL1( Mols* mols );
+  void HookL0( SingleMolEntity* mol );
 };
 
 

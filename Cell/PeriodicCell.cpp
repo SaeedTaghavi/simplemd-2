@@ -81,7 +81,7 @@ int BookPeriodicCell::Force( const Combination& combi, const Truncation& rc, Pot
   int executed = 0;
   int ncombi = combi.ima.size();
   //
-  //¥«¥Ã¥È¥ª¥Õµ÷Î¥¤è¤ê¤â1AÄ¹¤á¤Ç²¾ÂĞ¥ê¥¹¥È¤òºîÀ®¤¹¤ë¡£
+  //ã‚«ãƒƒãƒˆã‚ªãƒ•è·é›¢ã‚ˆã‚Šã‚‚1Aé•·ã‚ã§ä»®å¯¾ãƒªã‚¹ãƒˆã‚’ä½œæˆã™ã‚‹ã€‚
   //
   for( int co=0; co<ncombi; co++ ){
     int compo1 = combi.compo1[co];
@@ -89,9 +89,9 @@ int BookPeriodicCell::Force( const Combination& combi, const Truncation& rc, Pot
     const Mols& m1 = *(mols[compo1]);
     const Mols& m2 = *(mols[compo2]);
     //
-    //ËÜÅö¤Ï¡¢Äê´üÅª¤Ëbook¤òºÆ¹½ÃÛ¤·¤Ê¤±¤ì¤Ğ¤¤¤±¤Ê¤¤¤¬¡¢
-    //º£¤Î¤È¤³¤í¡¢½é²ó¤Î¤ßbook¹½ÃÛ¤ò¹Ô¤¦¡£¤·¤¿¤¬¤Ã¤Æ¡¢Ä¹»ş´Ö¤Î·×»»¤Ï¤Ç¤­¤Ê¤¤¡£
-    //benchmarkÍÑ¡£
+    //æœ¬å½“ã¯ã€å®šæœŸçš„ã«bookã‚’å†æ§‹ç¯‰ã—ãªã‘ã‚Œã°ã„ã‘ãªã„ãŒã€
+    //ä»Šã®ã¨ã“ã‚ã€åˆå›ã®ã¿bookæ§‹ç¯‰ã‚’è¡Œã†ã€‚ã—ãŸãŒã£ã¦ã€é•·æ™‚é–“ã®è¨ˆç®—ã¯ã§ããªã„ã€‚
+    //benchmarkç”¨ã€‚
     //
     if ( simplepair[co].listitems.size() == 0 ){
       int npair;
@@ -105,7 +105,7 @@ int BookPeriodicCell::Force( const Combination& combi, const Truncation& rc, Pot
     }
   }
   //
-  //²¾ÂĞ¥ê¥¹¥È¤Î°µ½Ì¡£¼Âºİ¤ËÁê¸ßºîÍÑ¤¹¤ëÂĞ¤Î¤ß¤òÃê½Ğ¤¹¤ë¡£¤½¤ì¤òÎÏ·×»»¤Ë²ó¤¹¡£
+  //ä»®å¯¾ãƒªã‚¹ãƒˆã®åœ§ç¸®ã€‚å®Ÿéš›ã«ç›¸äº’ä½œç”¨ã™ã‚‹å¯¾ã®ã¿ã‚’æŠ½å‡ºã™ã‚‹ã€‚ãã‚Œã‚’åŠ›è¨ˆç®—ã«å›ã™ã€‚
   //
   for( int co=0; co<ncombi; co++ ){
 

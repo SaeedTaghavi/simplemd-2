@@ -13,11 +13,11 @@ Cell::~Cell(){
 
 
 
-void SimpleCell::Execute( CollectorPlugin& plugin )
+void SimpleCell::PluginHookL1( CollectorPlugin& plugin )
 {
   int ncompo = mols.size();
   for( int i=0;i<ncompo;i++)
-    plugin.Execute2( mols[i].get() );
+    plugin.HookL1( mols[i].get() );
 }
 
 
@@ -545,7 +545,7 @@ void
 SimpleCell::Rescale( const Vector3& r )
 {
   ScalePositionPlugin p( r );
-  p.Execute1( this );
+  p.HookL2( this );
 }
 
 
@@ -842,5 +842,5 @@ RelocatableCell::Rescale( const Vector3& r )
   origin.Scale( r );
 
   ScalePositionPlugin p( r );
-  p.Execute1( this );
+  p.HookL2( this );
 }

@@ -916,9 +916,9 @@ PolyatomicMols::Position( int i ) const
 
 
 
-void PolyatomicMols::Execute( CollectorPlugin& plugin )
+void PolyatomicMols::PluginHookL0( CollectorPlugin& plugin )
 {
   int nmol = mols.size();
   for(int i=0; i<nmol; i++)
-    plugin.Execute( mols[i] );
+    plugin.HookL0( mols[i] );
 }

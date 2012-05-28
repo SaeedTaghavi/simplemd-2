@@ -110,7 +110,7 @@ Replica::running()
     Vector3 ratio( r/s, r/s, r/s );
     MolCollection* mol = system->GetMolCollection();
     ScaleVelocityPlugin p( ratio );
-    p.Execute0( mol );
+    p.HookL3( mol );
     //mol->ScaleVelocity( ratio );
     nosepoincare->SetS( 1 );
     //nosepoincare->SetH0( 0 );
