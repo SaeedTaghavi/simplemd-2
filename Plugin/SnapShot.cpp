@@ -10,7 +10,7 @@
 bool
 SnapShot::running()
 {
-  system->SnapShot(os);
+  system->SnapShot(os, mode);
   return true;
 }
 

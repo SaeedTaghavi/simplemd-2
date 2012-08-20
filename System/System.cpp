@@ -20,10 +20,13 @@ SimpleMD::write(){
 
 //Write snapshot (under construction)
 void 
-SimpleMD::SnapShot( ostream& out ){
+SimpleMD::SnapShot( ostream& out, int mode ){
   out << "@TABS" << endl
          << absoluteTime / ( pico * unit->sec ) << endl;
-  molecules->SnapShot( *unit, dt, out );
+  if ( mode == 0 )
+    molecules->SnapShot( *unit, dt, out );
+  else if ( mode == 1)
+    molecules->Write( *unit, dt, out );
 }
 
 

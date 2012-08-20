@@ -99,5 +99,5 @@ System/NosePoincareAndersenMD.o: System/NosePoincareAndersenMD.hpp debug.hpp Int
 pair.o: MolCollection.hpp System/System.hpp Cell/Cell.hpp SingleMol/SingleMol.hpp Mols/MonatomicMols.hpp Plugin/PairProcessPlugin.hpp FileIO.hpp SingleMol/PolyatomicMol.hpp SingleMol/MonatomicMol.hpp SingleMol/RigidBody2.hpp debug.hpp Mols/RigidBodies.hpp Cell/GridCell.hpp PairTool.hpp Mols/PolyatomicMols.hpp SingleMol/RigidBody.hpp 
 Cell/PeriodicCell.hpp: Cell/Cell.hpp 
 Cell/GridCell.o: debug.hpp Cell/GridCell.hpp 
-Plugin/FixComponentPlugin.o: MolCollection.hpp Cell/Cell.hpp MolProperty.hpp Mols/MonatomicMols.hpp Plugin/FixComponentPlugin.hpp Vector3.hpp Mols/RigidBodies.hpp Mols/RigidBodies2.hpp System/SimpleMD.hpp Plugin/CollectorPlugin.hpp Mols/Mols.hpp 
+Plugin/FixComponentPlugin.o: MolCollection.hpp Cell/Cell.hpp MolProperty.hpp Mols/MonatomicMols.hpp Plugin/FixComponentPlugin.hpp Vector3.hpp Mols/RigidBodies2.hpp Cell/GridCell.hpp Mols/RigidBodies.hpp System/SimpleMD.hpp Plugin/CollectorPlugin.hpp Mols/Mols.hpp 
 Interaction/PotVir.o: Interaction/PotVir.hpp 

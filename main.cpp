@@ -439,7 +439,13 @@ public:
 	fgets( buf, sizeof(buf), input );
 	int interval = atoi( buf );
         // interval plugin containing snapshot plugin
-        plugins.push_back( ProcessPluginHandle( new Interval( interval, new SnapShot() ) ) );
+        plugins.push_back( ProcessPluginHandle( new Interval( interval, new SnapShot( cerr, 0 ) ) ) );
+      }
+      else if ( tag == "@SNPV" ){
+	fgets( buf, sizeof(buf), input );
+	int interval = atoi( buf );
+        // interval plugin containing snapshot plugin
+        plugins.push_back( ProcessPluginHandle( new Interval( interval, new SnapShot( cerr, 1 ) ) ) );
       }
       else if ( tag == "@SNP1" ){
 	fgets( buf, sizeof(buf), input );

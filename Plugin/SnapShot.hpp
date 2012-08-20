@@ -11,8 +11,9 @@ class SnapShot : public ProcessPlugin
   SimpleMD* system;
 
   ostream& os;
+  int mode;
 public:
-  explicit SnapShot( ostream& out=cerr ) : os(out) {};
+  explicit SnapShot( ostream& out=cerr, int mode_=0 ) : os(out), mode(mode_) {};
   void initialize( SimpleMD* sys ){system = sys;};
   bool running();
   ~SnapShot()
