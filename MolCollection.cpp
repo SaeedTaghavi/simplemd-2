@@ -149,7 +149,7 @@ MolCollection::Write( const Unit& unit, double dt, ostream& to )
     const FlexibleHandle& fh = prop[compo];
     to << "@ID08\n"
        << fh->id08 << '\n';
-    MolsHandle mols = cell->PullAll( compo );
+    MolsHandle mols = cell->CopyAll( compo );
     mols->Write( unit, to );
   }
 }
