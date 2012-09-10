@@ -15,6 +15,7 @@
 #include "System/System.hpp"
 #include "MolCollection.hpp"
 #include "PairTool.hpp"
+#include <cstdio>
 
 //Compatibility w/ Genesis6
 MolCollection*
