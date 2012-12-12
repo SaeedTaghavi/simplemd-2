@@ -2,90 +2,75 @@
 # coding: utf-8
 from math import *
 import sys
+import numpy
+import numpy.linalg
 
 #should be rewritten with numpy
 
-def sqlen(v):
-    s=0.0
-    for k in range(3):
-        s += v[k]**2
-    return s
-    
-def normalize(v):
-    r=1.0 / sqrt(sqlen(v))
-    return v[0]*r,v[1]*r,v[2]*r
 
-def decide1(x1,y1,z1,x2,y2,z2,x3,y3,z3):
-    x4=-(x1+x2+x3)
-    y4=-(y1+y2+y3)
-    z4=-(z1+z2+z3)
-    return normalize(x4,y4,z4)
+#v1,v2,v3: numpy arrays
+#return value: fourth vector candidate
+def decide1(v1,v2,v3):
+    v4 = -(v1+v2+v3)
+    return v4 / numpy.linalg.norm(v4)
 
 
-def decide2(x1,y1,z1,x2,y2,z2):
-    dx,dy,dz=normalize(x1+x2,y1+y2,z1+z2)
-    vx,vy,vz=normalize(y1*z2-z1*y2,z1*x2-x1*z2,x1*y2-y1*x2)
-    dx*=-sqrt(1./3)
-    dy*=-sqrt(1./3)
-    dz*=-sqrt(1./3)
-    vx *= sqrt(2./3)
-    vy *= sqrt(2./3)
-    vz *= sqrt(2./3)
-    return dx+vx,dy+vy,dz+vz,dx-vx,dy-vy,dz-vz
-
+def decide2(v1,v2)
+    d = v1+v2
+    d /= numpy.linalg.norm(d)
+    v = numpy.cross(v1,v2)
+    v /= numpy.linalg.norm(v)
+    d *= -sqrt(1./3)
+    v *=  sqrt(2./3)
+    return d+v,d-v
 
 
 #outer product of two vectors; return None if vector is too small
 def op(i,j,check=True):
-    if check and (sqlen(i) < 0.01 or sqlen(j) < 0.01):
+    if check and (numpy.linalg.norm(i) < 0.1 or numpy.linalg.norm(j) < 0.1):
         return None
-    a = [0.0] * 3
-    for k in range(3):
-        a[k] = i[k-2]*j[k-1] - i[k-1]*j[k-2]
-    if check and sqlen(a) < 0.01:
+    a = numpy.cross(i,j)
+    if check and numpy.linalg.norm(a) < 0.1:
         return None
     return a
 
 
-def ip(i,j):
-    cosine = 0.0
-    for k in range(3):
-        cosine += i[k]*j[k]
-    return cosine
-
 
 #calculate quaternions from a rotation matrix (three orthogonal vectors)
 def rotmat2quat(mat):
-    i = (mat[0],mat[3],mat[6])
-    j = (mat[1],mat[4],mat[7])
-    k = (mat[2],mat[5],mat[8])
+	i = mat[:,0]
+	j = mat[:,1]
+	k = mat[:,2]
     #print sqlen(i),sqlen(j),sqlen(k)
+    ex = (1.0, 0.0, 0.0)
+    ey = (0.0, 1.0, 0.0)
+    ez = (0.0, 0.0, 1.0)
     
     # i軸をx軸に移す回転の軸は、iとxの2分面上にある。
     # j軸をy軸に移す回転の軸は、jとyの2分面上にある。
     # そして、それらを同時にみたす回転の軸は、2つの2分面の交線である。
     # 交線は、2つの面の法線のいずれとも直交する=外積である。*/
     
-    a = op((i[0]-1.0,i[1],i[2]),(j[0],j[1]-1.0,j[2]))
+    a = op(i-ex, j-ey)
     if not a:
-        a = op((i[0]-1.0,i[1],i[2]),(k[0],k[1],k[2]-1.0))
+        a = op(i-ex, k-ez)
         if not a:
-            a = op((k[0],k[1],k[2]-1.0),(j[0],j[1]-1.0,j[2]))
+            a = op(k-ez, j-ey)
             if not a:
                 sys.stderr.write("outer prod warning\n")
                 #//全く回転しないケース
                 return 1.0, 0.0, 0.0, 0.0
-    a = normalize(a)
+    a /= numpy.linalg.norm(a)
     
     #/*回転軸aが求まったので、x軸をi軸に重ねる回転の大きさを求める。。*/
-    x0 = 1.0 -a[0]*a[0], 0.0 -a[0]*a[1], 0.0 -a[0]*a[2]
-    i0 = i[0]-a[0]*a[0], i[1]-a[0]*a[1], i[2]-a[0]*a[2]
-    if sqlen(i0) < 0.01:
-        i0 = j[0]-a[1]*a[0], j[1]-a[1]*a[1], j[2]-a[1]*a[2]
-        x0 = 0.0 -a[1]*a[0], 1.0 -a[1]*a[1], 0.0 -a[1]*a[2]
+    x0 = ex - a[0]*a
+    i0 = i  - a[0]*a
+    if numpy.linalg.norm(i0) < 0.1:
+        i0 = j - a[1]*a
+        x0 = ey - a[1]*a
 
-    i0 = normalize(i0)
-    x0 = normalize(x0)
+    i0 /= numpy.linalg.norm(i0)
+    x0 /= numpy.linalg.norm(x0)
     cosine = ip(i0,x0)
     if cosine < -1.0 or cosine > 1.0:
         cosh = 0.0
@@ -114,7 +99,7 @@ def quat2rotmat(q):
     sp31=2.0*(a*c+b*d)
     sp32=2.0*(a*b-c*d)
     sp33=a*a+d*d-(b*b+c*c)
-    return sp11,sp12,sp13, sp21,sp22,sp23, sp31,sp32,sp33
+    return numpy.matrix([[sp11,sp12,sp13], [sp21,sp22,sp23], [sp31,sp32,sp33]])
 
 
 
@@ -167,25 +152,9 @@ def quat2euler(q):
     return e
 
 
-def qadd(q1,q2):
-    a1,b1,c1,d1 = q1
-    a2,b2,c2,d2 = q2
-    a3=a1*a2-b1*b2-c1*c2-d1*d2
-    b3=a1*b2+b1*a2+c1*d2-d1*c2
-    c3=a1*c2+c1*a2-b1*d2+d1*b2
-    d3=a1*d2+d1*a2+b1*c2-c1*b2
-    if a3 < 0:
-       a3 = -a3
-       b3 = -b3
-       c3 = -c3
-       d3 = -d3
-    return (a3,b3,c3,d3)
-
-
 def test_rotation():
     e = (0.2,0.3,0.4)
     print e
     print quat2euler(euler2quat(e))
     print euler2quat(e)
     print rotmat2quat(quat2rotmat(euler2quat(e)))
-

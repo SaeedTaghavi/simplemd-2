@@ -3,19 +3,22 @@
 
 import sys
 from rotation import *
-
+import math
 
 def usage():
     print "usage: %s -m|-3|-4" % sys.argv[0]
     print "  -m\tmdview."
     print "  -3\tnx3a."
     print "  -4\tnx4a."
+    print "  -n x\tngph."
     sys.exit(1)
 
-if len(sys.argv) == 2:
+if len(sys.argv) >= 2:
     mode = sys.argv[1]
 else:
     usage()
+if mode == "-n":
+    thres = float(sys.argv[2])
 
 
 def output_mdview(atoms):
@@ -34,6 +37,8 @@ while True:
     if len(line) == 0:
         break
     columns = line.split()
+    if len(columns) == 0:
+        continue
     #look up tags
     tag = columns[0]
     if tag in  ('@ID08',):
@@ -83,6 +88,7 @@ while True:
             print nmol
         #read molecular info
         atoms = []
+        mols = []
         for i in range(nmol):
             line = sys.stdin.readline()
             columns = line.split()
@@ -97,14 +103,17 @@ while True:
                 euler = map(float,columns[3:7])
                 quat = euler2quat(euler)
                 rotmat = quat2rotmat(quat)
-            if mode == "-m":
+            if mode in ("-m", "-n"):
                 mol = defr[id08]
+                intra = []
                 for site in mol[0]:
                     x,y,z,mass,label = site
                     xx = cx + x*rotmat[0] + y*rotmat[1] + z*rotmat[2]
                     yy = cy + x*rotmat[3] + y*rotmat[4] + z*rotmat[5]
                     zz = cz + x*rotmat[6] + y*rotmat[7] + z*rotmat[8]
                     atoms.append((label, xx,yy,zz))
+                    intra.append((label, xx,yy,zz))
+                mols.append(intra)
             elif mode == "-3":
                 euler = quat2euler(rotmat2quat(rotmat))
                 print cx,cy,cz,euler[0],euler[1],euler[2]
@@ -113,3 +122,34 @@ while True:
                 print cx,cy,cz,quat[0],quat[1],quat[2],quat[3]
         if mode == "-m":
             output_mdview(atoms)
+        if mode == "-n":
+            print "@NGPH"
+            print len(mols)
+            for i in range(len(mols)):
+                for j in range(i+1,len(mols)):
+                    dmin = 999999.
+                    dirmin  = 0
+                    for si in mols[i]:
+                        for sj in mols[j]:
+                            if si[0][0] == "O" and sj[0][0] == "H":
+                                dir = -1
+                            if si[0][0] == "H" and sj[0][0] == "O":
+                                dir = +1
+                            if (si[0][0] == "O" and sj[0][0] == "H") or (si[0][0] == "H" and sj[0][0] == "O"):
+                                dx = si[1]-sj[1]
+                                dy = si[2]-sj[2]
+                                dz = si[3]-sj[3]
+                                dx -= math.floor(dx / box[0]+0.5)*box[0]
+                                dy -= math.floor(dy / box[1]+0.5)*box[1]
+                                dz -= math.floor(dz / box[2]+0.5)*box[2]
+                                d = sqrt(dx**2+dy**2+dz**2)
+                                if d < dmin:
+                                    dmin = d
+                                    dirmin = dir
+                    if dmin < thres:
+                        if dirmin > 0:
+                            print i,j
+                        else:
+                            print j,i
+            print -1,-1
+                            
