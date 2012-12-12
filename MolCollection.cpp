@@ -199,9 +199,9 @@ void MolCollection::StopDrift()
   momentum.x  *= coeff;
   momentum.y  *= coeff;
   momentum.z  *= coeff;
-  cout << momentum.x
-       << " " << momentum.y
-       << " " << momentum.z << " drift\n";
+  //  cout << momentum.x
+  //     << " " << momentum.y
+  //     << " " << momentum.z << " drift\n";
 
   //Add vecoloty to all molecules via plugin.
   AddVelocityPlugin p( momentum );
