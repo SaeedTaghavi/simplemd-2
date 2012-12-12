@@ -344,6 +344,7 @@ public:
     int ndivx=0, ndivy=0, ndivz=0;
     int forceloaded = 1;
     int innerloop = 0;
+    int fixnext = 0;
     //cerr << "Simple::Read()" << endl;
     while( NULL != fgets( buf, sizeof(buf), input ) ){
       string tag = string( buf );
@@ -498,6 +499,11 @@ public:
 	  			plugins.push_back( ProcessPluginHandle( new FixComponentPlugin( coordcount+1 ) ) );
 				}
       }
+      else if ( tag == "@FIXX" )  {
+				//molecular-level position fixing.
+				fgets( buf, sizeof( buf ), input );
+				fixnext = atoi(buf);
+      }
       else if ( tag == "@INNR" ) {
 	fgets( buf, sizeof(buf), input );
 	innerloop = atoi( buf );
@@ -552,36 +558,37 @@ public:
         //ph->SetSize( nmol );
         MolsHandle mh;
         if ( tag == "@AR3A" ){
-          MonatomicMols* mm = new MonatomicMols( ph );
+          MonatomicMols* mm = new MonatomicMols( ph, fixnext );
           mh = MolsHandle( mm );
           mm->ReadAR3A( nmol, *box, *unit, input );
           forceloaded = 0;
         }
         else if ( tag == "@NX4B" ){
-          RigidBodies* mm = new RigidBodies( ph );
+          RigidBodies* mm = new RigidBodies( ph, fixnext );
           mh = MolsHandle( mm );
           mm->ReadNX4A( nmol, *box, *unit, input );
           forceloaded = 0;
         }
         else if ( tag == "@NX4A" ){
-          RigidBodies2* mm = new RigidBodies2( ph );
+          RigidBodies2* mm = new RigidBodies2( ph, fixnext );
           mh = MolsHandle( mm );
           mm->ReadNX4A( nmol, *box, *unit, input );
           forceloaded = 0;
         }
         else if ( tag == "@WTG5" ){
-          RigidBodies* mm = new RigidBodies( ph );
+          RigidBodies* mm = new RigidBodies( ph, fixnext );
           mh = MolsHandle( mm );
           mm->ReadWTG5( nmol, *unit, input );
         }
         else if ( tag == "@WTG6" ){
-          RigidBodies2* mm = new RigidBodies2( ph );
+          RigidBodies2* mm = new RigidBodies2( ph, fixnext );
           mh = MolsHandle( mm );
           mm->ReadWTG6( nmol, *unit, input );
         }
         else if ( tag == "@ATG5" ){
-          mh = MolsHandle( new MonatomicMols( ph, nmol, *unit, input ) );
+          mh = MolsHandle( new MonatomicMols( ph, nmol, *unit, input, fixnext ) );
         }
+	fixnext = 0;
         if ( cell == 0 ){
 	  if ( box != NULL ){
 	    if ( ndivx && ndivy && ndivz ){

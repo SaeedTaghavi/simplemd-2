@@ -40,14 +40,8 @@ MolCollection::~MolCollection()
 
 int MolCollection::GetDoF()
 {
-  int dof = 0;
-  const FlexibleArray& prop = combi.GetProperty();
-  int ncompo = prop.size();
-  for(int compo=0; compo<ncompo; compo++ ){
-    int size = cell->GetSize( compo );
-    dof += prop[compo]->GetDoF() * size;
-    printf("%d dof %d nmol\n", dof, size);
-  }
+  int dof = cell->GetDoF();
+  cerr << dof << "Total DOF" << endl;
   return dof;
 }
 
@@ -193,8 +187,9 @@ void MolCollection::ProgressMomentum( double dt )
 void MolCollection::StopDrift()
 {
   Vector3 momentum;
-  cell->TotalMomentum( momentum );
-  double mass  = cell->GetMass();
+  cell->TotalMomentum( momentum ); //fixed molecules are excluded naturally.
+  //double mass  = cell->GetMass();  //fixed molecules are included. 
+  double mass  = cell->GetMobileMass(); //fixed molecules are excluded.
   double coeff = -1 / mass;
   momentum.x  *= coeff;
   momentum.y  *= coeff;
@@ -204,7 +199,7 @@ void MolCollection::StopDrift()
   //     << " " << momentum.z << " drift\n";
 
   //Add vecoloty to all molecules via plugin.
-  AddVelocityPlugin p( momentum );
+  AddVelocityPlugin p( momentum );  //fixed molecules are excluded.
   p.HookL2( cell );
 }
 

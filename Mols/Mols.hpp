@@ -35,6 +35,7 @@ public:
 
   //"Get" functions
   virtual double GetEk() const = 0;
+  virtual int IsFixed() const = 0;
 
   virtual void BoxCoordinate( const Box& box ) = 0;
   virtual MolsHandle Emmigrate( const Box& box ) = 0;

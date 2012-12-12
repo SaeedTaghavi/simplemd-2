@@ -7,12 +7,13 @@ int main( int argc, char* argv[] )
   MolPropertyHandle prop( MolPropertyHandle( new Rigid ) );
   char buf[1024];
   int nmol;
+  const int isfixed = 0;
 
   while( NULL != fgets( buf, sizeof(buf), stdin ) ){
     string tag = string( buf );
     tag.resize(5);
     if ( tag == "@WTG6" ){
-      RigidBodies2 mol( prop );
+      RigidBodies2 mol( prop, isfixed );
       fgets( buf, sizeof( buf ), stdin );
       nmol = atoi( buf );
       mol.ReadWTG6( nmol, unit, stdin );

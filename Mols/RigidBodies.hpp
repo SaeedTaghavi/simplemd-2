@@ -22,11 +22,12 @@ class RigidBodies : public Mols
 protected:
 private:
   MolPropertyHandle prop;
+  int isFixed;
 public:
   vector<RigidBody> mols;
   //additional properties
   //end
-  RigidBodies( const MolPropertyHandle& );
+  RigidBodies( const MolPropertyHandle&, int isfixed );
   ~RigidBodies();
   void BoxCoordinate( const Box& box );
   MolsHandle Emmigrate( const Box& box );
@@ -65,6 +66,7 @@ public:
 		  );
   int Size() const;
   MolPropertyHandle GetProperty() const;
+  virtual int IsFixed() const;
   SingleMolHandle Peek( int i ) const;
   const SingleMolEntity& Molecule( int i ) const;
   int  Push( SingleMolHandle mol );

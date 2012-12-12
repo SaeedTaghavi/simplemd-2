@@ -60,6 +60,16 @@ AddVelocityPlugin::HookL0( SingleMolEntity* mol )
 
 
 
+
+void
+AddVelocityPlugin::HookL1( Mols* mols )
+{
+  if ( ! mols->IsFixed() ){
+    mols->PluginHookL0( *this );
+  }
+}
+
+
 void
 ScaleVelocityPlugin::HookL0( SingleMolEntity* mol )
 {

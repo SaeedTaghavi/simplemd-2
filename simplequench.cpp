@@ -224,6 +224,7 @@ public:
     int ndivx=0, ndivy=0, ndivz=0;
     int forceloaded = 1;
     int innerloop = 0;
+    const int isfixed = 0;
     //cerr << "Simple::Read()" << endl;
     while( NULL != fgets( buf, sizeof(buf), input ) ){
       string tag = string( buf );
@@ -303,30 +304,30 @@ public:
         //ph->SetSize( nmol );
         MolsHandle mh;
         if ( tag == "@AR3A" ){
-          MonatomicMols* mm = new MonatomicMols( ph );
+          MonatomicMols* mm = new MonatomicMols( ph, isfixed );
           mh = MolsHandle( mm );
           mm->ReadAR3A( nmol, *box, *unit, input );
           forceloaded = 0;
         }
         else if ( tag == "@NX4B" ){
-          RigidBodies* mm = new RigidBodies( ph );
+          RigidBodies* mm = new RigidBodies( ph, isfixed );
           mh = MolsHandle( mm );
           mm->ReadNX4A( nmol, *box, *unit, input );
           forceloaded = 0;
         }
         else if ( tag == "@NX4A" ){
-          RigidBodies* mm = new RigidBodies( ph );
+          RigidBodies* mm = new RigidBodies( ph, isfixed );
           mh = MolsHandle( mm );
           mm->ReadNX4A( nmol, *box, *unit, input );
           forceloaded = 0;
         }
         else if ( tag == "@WTG5" ){
-          RigidBodies* mm = new RigidBodies( ph );
+          RigidBodies* mm = new RigidBodies( ph, isfixed );
           mh = MolsHandle( mm );
           mm->ReadWTG5( nmol, *unit, input );
         }
         else if ( tag == "@ATG5" ){
-          mh = MolsHandle( new MonatomicMols( ph, nmol, *unit, input ) );
+          mh = MolsHandle( new MonatomicMols( ph, nmol, *unit, input, isfixed ) );
         }
         if ( cell == 0 ){
 	  if ( box != NULL ){

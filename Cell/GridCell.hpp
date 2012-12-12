@@ -40,6 +40,7 @@ public:
   int GetNumCells() const {return nc;};
   const RelocatableCellHandle& GetCell(const int compo ) const {return cells[compo];};
   double GetMass() const;
+  double GetMobileMass() const;
 
 	//Set
   void Set( const int compo, const MolsHandle& mols );
@@ -61,6 +62,7 @@ public:
   double* serialize( double* p ) const;
   double* serializeforce( double* xi ) const { assert(0); return xi; }
   int  qdof() const { assert(0); return 0; }
+  int  GetDoF() const;
 
 	//Plugins
   void PluginHookL1( CollectorPlugin& plugin );

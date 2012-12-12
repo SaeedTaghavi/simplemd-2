@@ -11,13 +11,19 @@ PolyatomicMols::PolyatomicMols()
 */
 
 
-PolyatomicMols::PolyatomicMols( MolPropertyHandle p )
+PolyatomicMols::PolyatomicMols( MolPropertyHandle p, int isfixed )
 {
+  isFixed = isfixed;
   SetProperty( p );
 }
 
 
 
+int
+PolyatomicMols::IsFixed() const
+{
+  return isFixed;
+}
 
 
 
@@ -50,7 +56,7 @@ PolyatomicMols::Size() const
 MolsHandle
 PolyatomicMols::EmptyClone() const
 {
-  MolsHandle h = MolsHandle( new PolyatomicMols( prop ) );
+  MolsHandle h = MolsHandle( new PolyatomicMols( prop, isFixed ) );
   return h;
 }
 
@@ -131,7 +137,7 @@ PolyatomicMols::pull( int which )
 MolsHandle
 PolyatomicMols::Emmigrate( const Box &box )
 {
-  PolyatomicMols* emmigrants = new PolyatomicMols( prop );
+  PolyatomicMols* emmigrants = new PolyatomicMols( prop, isFixed );
   mesg("PolyatomicMols3::emmigrate\n");
   unsigned int i=0;
   while( i<mols.size() ){
@@ -243,7 +249,10 @@ int PolyatomicMols::Force_PBC( const Intersite& im, const Box &box, const Trunca
   if ( p ){
     int nsite = p->GetNumSite();
     int nmol  = mols.size();
-
+    if ( isFixed ){
+      pv.Set( ep, vr );
+      return 1;
+    }
     const IntrParamsArray& ia = p->GetIntrParams();
     //printf("NMOL: %d\n", nmol);
     for( int si=0; si<nsite; si++ ){
@@ -344,6 +353,10 @@ int PolyatomicMols::Force( const Intersite& im, const Truncation& rc, PotVir &pv
   MolPropertyHandle h  = GetProperty();
   Flexible*       p = dynamic_cast<Flexible*> ( h.get() );
   if ( p ){
+    if ( isFixed ){
+      pv.Set( ep, vr );
+      return 1;
+    }
     int nsite = p->GetNumSite();
     const IntrParamsArray& ia = p->GetIntrParams();
     //printf("NMOL: %d\n", nmol);
@@ -534,6 +547,9 @@ int PolyatomicMols::Force_PBC(
 void 
 PolyatomicMols::Translate( const Vector3& offset )
 {
+  if ( isFixed ){
+    return;
+  }
   int nmol = mols.size();
   for( int i=0; i<nmol; i++ ){
     mols[i].Translate( offset );
@@ -545,6 +561,9 @@ PolyatomicMols::Translate( const Vector3& offset )
 
 void PolyatomicMols::ProgressMomentum( double dt )
 {
+  if ( isFixed ){
+    return;
+  }
   MolPropertyHandle h = GetProperty();
   Flexible* e = dynamic_cast<Flexible*> ( h.get() );
   assert( e != 0 );
@@ -579,6 +598,10 @@ force_offset(
   if ( p1 && p2 ){
     int nsite1 = p1->GetNumSite();
     int nsite2 = p2->GetNumSite();
+    if ( m1.IsFixed() && m2.IsFixed() ){
+      pv.Set( ep, vr );
+      return 1;
+    }
     const IntrParamsArray& ia1 = p1->GetIntrParams();
     const IntrParamsArray& ia2 = p2->GetIntrParams();
     for( int s1=0; s1<nsite1; s1++ ){
@@ -684,6 +707,10 @@ force_offsetpbc(
   MolPropertyHandle h2  = m2.GetProperty();
   Flexible*       p2  = dynamic_cast<Flexible*> ( h2.get() );
   if ( p1 && p2 ){
+    if ( m1.IsFixed() && m2.IsFixed() ){
+      pv.Set( ep, vr );
+      return 1;
+    }
     int nsite1 = p1->GetNumSite();
     int nsite2 = p2->GetNumSite();
     const IntrParamsArray& ia1 = p1->GetIntrParams();
@@ -807,6 +834,10 @@ force_pbc(
   MolPropertyHandle h2  = m2.GetProperty();
   Flexible*       p2  = dynamic_cast<Flexible*> ( h2.get() );
   if ( p1 && p2 ){
+    if ( m1.IsFixed() && m2.IsFixed() ){
+      pv.Set( ep, vr );
+      return 1;
+    }
     int nsite1 = p1->GetNumSite();
     int nsite2 = p2->GetNumSite();
     const IntrParamsArray& ia1 = p1->GetIntrParams();

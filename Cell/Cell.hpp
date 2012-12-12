@@ -26,6 +26,7 @@ public:
   virtual void GetEkt( Vector3& ekt ) const = 0;
   virtual int GetSize( const int compo ) const = 0;
   virtual double GetMass() const = 0;
+  virtual double GetMobileMass() const = 0;
   virtual int GetNumCompo() const = 0;
   virtual void TotalMomentum( Vector3& momentum ) const = 0;
   virtual double Volume() = 0;
@@ -51,6 +52,7 @@ public:
   virtual double* serialize( double* p ) const = 0;
   virtual double* serializeforce( double* xi ) const = 0;
   virtual int  qdof() const = 0;
+  virtual int  GetDoF() const = 0;
   virtual void PluginHookL1( CollectorPlugin& plugin ) = 0;
   virtual int  PairProcess( PairProcessPlugin& p, const Combination& combi, const Truncation& rc ) const = 0;
   virtual void Rescale( const Vector3& r ) = 0;
@@ -81,6 +83,7 @@ public:
   void GetEkt( Vector3& ekt ) const;
   int GetSize( const int compo ) const;
   double GetMass() const;
+  double GetMobileMass() const;
   void ProgressPosition( double );
   void ProgressMomentum( double );
   virtual void Write( const Unit& unit, ostream& to ){}
@@ -99,6 +102,7 @@ public:
   double* serialize( int compo, double* const p ) const;
   double* serializeforce( int compo, double* const xi ) const;
   int  qdof() const;
+  int  GetDoF() const;
 
   void PluginHookL1( CollectorPlugin& plugin );
   int  PairProcess( PairProcessPlugin& p, const Combination& combi, const Truncation& rc ) const;

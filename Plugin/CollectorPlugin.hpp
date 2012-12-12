@@ -57,6 +57,7 @@ class AddVelocityPlugin: public CollectorPlugin{
 public:
   AddVelocityPlugin( const Vector3& v ) : velocity(v) {}
   void HookL0( SingleMolEntity* mol );
+  void HookL1( Mols* mols );
   virtual ~AddVelocityPlugin(){}
 };
 

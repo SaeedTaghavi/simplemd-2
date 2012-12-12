@@ -36,17 +36,25 @@ RigidBodies2::Size() const
 
 
 
-RigidBodies2::RigidBodies2( const MolPropertyHandle& p )
+RigidBodies2::RigidBodies2( const MolPropertyHandle& p, int isfixed )
 {
-    SetProperty( p );
+  isFixed = isfixed;
+  SetProperty( p );
 }
 
+
+
+int
+RigidBodies2::IsFixed() const
+{
+  return isFixed;
+}
 
 
 MolsHandle
 RigidBodies2::EmptyClone() const
 {
-    MolsHandle h = MolsHandle( new RigidBodies2( prop ) );
+  MolsHandle h = MolsHandle( new RigidBodies2( prop, isFixed ) );
   return h;
 }
 
@@ -127,7 +135,7 @@ RigidBodies2::pull( int which )
 MolsHandle
 RigidBodies2::Emmigrate( const Box &box )
 {
-  RigidBodies2* emmigrants = new RigidBodies2( prop );
+  RigidBodies2* emmigrants = new RigidBodies2( prop, isFixed );
   mesg("RigidBodies23::emmigrate\n");
   int i=0;
   while( i < Size() ){
@@ -149,6 +157,9 @@ RigidBodies2::Emmigrate( const Box &box )
 
 double RigidBodies2::GetEk() const
 {
+  if ( isFixed ){
+    return 0;
+  }
   double ek = 0;
   int nmol  = Size();
   for( int i=0; i<nmol; i++ ){
@@ -167,6 +178,9 @@ void RigidBodies2::GetEkt( Vector3& ekt ) const
   double mass = e->GetMass();
   int nmol  = Size();
   ekt.Set(0,0,0);
+  if ( isFixed ){
+    return;
+  }
   for( int i=0; i<nmol; i++ ){
     Vector3 velocity = mols[i].com.GetVelocity();
     ekt.x += velocity.x * velocity.x;
@@ -191,6 +205,9 @@ RigidBodies2::TotalMomentum( Vector3& momentum ) const
   int nmol  = Size();
 
   momentum.Set(0,0,0);
+  if ( isFixed ){
+    return;
+  }
   for( int i=0; i<nmol; i++ ){
     Vector3 velocity = mols[i].com.GetVelocity();
     momentum.x += velocity.x;
@@ -277,10 +294,13 @@ void RigidBodies2::Postforce()
 void 
 RigidBodies2::Translate( const Vector3& offset )
 {
-    int nmol = Size();
-    for( int j=0; j<nmol; j++ ){
-        mols[j].Translate( offset );
-    }
+  if ( isFixed ){
+    return;
+  }
+  int nmol = Size();
+  for( int j=0; j<nmol; j++ ){
+    mols[j].Translate( offset );
+  }
 }
 
 
@@ -290,6 +310,9 @@ RigidBodies2::Translate( const Vector3& offset )
 void 
 RigidBodies2::ProgressMomentum( double dt )
 {
+  if ( isFixed ){
+    return;
+  }
   int nmol = Size();
   for( int j=0; j<nmol; j++ ){
     mols[j].ProgressMomentum( dt );
@@ -301,6 +324,9 @@ RigidBodies2::ProgressMomentum( double dt )
 void 
 RigidBodies2::ProgressPosition( double dt )
 {
+  if ( isFixed ){
+    return;
+  }
   int nmol = Size();
   for( int j=0; j<nmol; j++ ){
     mols[j].ProgressPosition( dt );
@@ -380,6 +406,10 @@ force_common_2nd(
 {
   double epsum = 0;
   Matrix33 vrsum;
+  if ( m1.IsFixed() && m2.IsFixed() ){
+    pv.Set( epsum, vrsum );
+    return 1;
+  }
   int truncpairsize = truncpair.size();
   int npair = im.intr.size();
   valarray<double> ep(0.0, truncpairsize);
@@ -478,6 +508,10 @@ force_common_3rd(
 {
   double epsum = 0;
   Matrix33 vrsum;
+  if ( m1.IsFixed() && m2.IsFixed() ){
+    pv.Set( epsum, vrsum );
+    return 1;
+  }
   //pv.Clear();
   int truncpairsize = truncpair.size();
   int npair = im.intr.size();
@@ -850,6 +884,10 @@ force_common_2nd(
 {
   double epsum = 0;
   Matrix33 vrsum;
+  if ( m1.IsFixed() && m2.IsFixed() ){
+    pv.Set( epsum, vrsum );
+    return 1;
+  }
   //pv.Clear();
   int truncpairsize = truncpair.size();
   int npair = im.intr.size();
@@ -947,6 +985,10 @@ force_common_3rd(
 {
   double epsum = 0;
   Matrix33 vrsum;
+  if ( m1.IsFixed() && m2.IsFixed() ){
+    pv.Set( epsum, vrsum );
+    return 1;
+  }
   int truncpairsize = truncpair.size();
   int npair = im.intr.size();
   valarray<double> ep(0.0, truncpairsize);

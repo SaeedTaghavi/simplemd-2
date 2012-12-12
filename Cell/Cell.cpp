@@ -341,6 +341,39 @@ qdof( const MolsHandle& mh )
 
 
 
+int GetDoF( const MolsHandle& mh )
+{
+  MonatomicMols* mmh = dynamic_cast<MonatomicMols*> ( mh.get() );
+  if ( mmh ){
+    if ( mmh->IsFixed() ){
+      return 0;
+    }
+    int    nmol = mh->Size();
+    return nmol * 3;
+  }
+  else{
+    RigidBodies* mmh = dynamic_cast<RigidBodies*> ( mh.get() );
+    if ( mmh ){
+      if ( mmh->IsFixed() ){
+	return 0;
+      }
+      int    nmol = mh->Size();
+      return nmol * 6;
+    }
+    else{
+      RigidBodies2* mmh = dynamic_cast<RigidBodies2*> ( mh.get() );
+      assert( mmh );
+      if ( mmh->IsFixed() ){
+	return 0;
+      }
+      int    nmol = mh->Size();
+      return nmol * 6;
+    }
+  }
+}
+
+
+
 
 
 
@@ -349,7 +382,6 @@ qdof( const MolsHandle& mh )
 
 
 
-//set coordinates
 int
 SimpleCell::qdof() const
 {
@@ -357,6 +389,19 @@ SimpleCell::qdof() const
   int ncompo = mols.size();
   for( int i=0; i<ncompo; i++ ){
     dof += ::qdof( mols[i] );
+  }
+  return dof;
+}
+
+
+
+int
+SimpleCell::GetDoF() const
+{
+  int dof = 0;
+  int ncompo = mols.size();
+  for( int i=0; i<ncompo; i++ ){
+    dof += ::GetDoF( mols[i] );
   }
   return dof;
 }
@@ -526,6 +571,20 @@ double SimpleCell::GetMass() const
   double mass = 0;
   for( int i=0;i<ncompo;i++){
     mass += mols[i]->Size() * mols[i]->GetProperty()->GetMass();
+  }
+  return mass;
+}
+
+
+
+double SimpleCell::GetMobileMass() const
+{
+  int ncompo = mols.size();
+  double mass = 0;
+  for( int i=0;i<ncompo;i++){
+    if ( ! mols[i]->IsFixed() ){
+      mass += mols[i]->Size() * mols[i]->GetProperty()->GetMass();
+    }
   }
   return mass;
 }

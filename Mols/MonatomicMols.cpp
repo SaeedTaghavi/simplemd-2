@@ -38,24 +38,24 @@ MonatomicMols::Size() const
 
 
 
-MonatomicMols::MonatomicMols()
+MonatomicMols::MonatomicMols( int isfixed )
 {
-  init();
+  init( isfixed );
 }
 
 
 
-MonatomicMols::MonatomicMols( MolPropertyHandle p )
+MonatomicMols::MonatomicMols( MolPropertyHandle p, int isfixed )
 {
-  init();
+  init( isfixed );
   SetProperty( p );
 }
 
 
 
-MonatomicMols::MonatomicMols( MolPropertyHandle p, int nmol, const Unit& unit, FILE* input )
+MonatomicMols::MonatomicMols( MolPropertyHandle p, int nmol, const Unit& unit, FILE* input, int isfixed )
 {
-  init();
+  init( isfixed );
   SetProperty( p );
   ReadATG5( nmol, unit, input );
 }
@@ -67,15 +67,24 @@ MonatomicMols::MonatomicMols( MolPropertyHandle p, int nmol, const Unit& unit, F
 MolsHandle
 MonatomicMols::EmptyClone() const
 {
-  MolsHandle h = MolsHandle( new MonatomicMols( prop ) );
+  MolsHandle h = MolsHandle( new MonatomicMols( prop, isFixed ) );
   return h;
 }
 
 
 
-void
-MonatomicMols::init()
+int
+MonatomicMols::IsFixed() const
 {
+  return isFixed;
+}
+
+
+
+void
+MonatomicMols::init( int isfixed )
+{
+  isFixed = isfixed;
 }
 
 
@@ -157,7 +166,7 @@ MonatomicMols::pull( int i )
 MolsHandle
 MonatomicMols::Emmigrate( const Box& box )
 {
-  MonatomicMols* emmigrants = new MonatomicMols;
+  MonatomicMols* emmigrants = new MonatomicMols( isFixed );
   unsigned int i=0;
   while( i<mols.size() ){
     MonatomicMol& m = mols[i];
@@ -179,6 +188,9 @@ MonatomicMols::Emmigrate( const Box& box )
 
 double MonatomicMols::GetEk() const
 {
+  if ( isFixed ){
+    return 0;
+  }
   int nmol = Size();
   double ek = 0;
   for( int i=0; i<nmol; i++ ){
@@ -199,6 +211,9 @@ void MonatomicMols::GetEkt( Vector3& ekt ) const
   double mass = massarray[0];
   int    nmol = Size();
   ekt.Set(0,0,0);
+  if ( isFixed ){
+    return;
+  }
   for( int i=0; i<nmol; i++ ){
     Vector3 velocity = mols[i].GetVelocity();
     ekt.x += velocity.x * velocity.x;
@@ -224,6 +239,9 @@ MonatomicMols::TotalMomentum( Vector3& momentum ) const
   int    nmol = Size();
 
   momentum.Set(0,0,0);
+  if ( isFixed ){
+    return;
+  }
   for( int i=0; i<nmol; i++ ){
     Vector3 velocity = mols[i].GetVelocity();
     momentum.x += velocity.x;
@@ -306,6 +324,10 @@ int MonatomicMols::Force_PBC( const Intersite& im, const Box &box, const Truncat
   Flexible*       e = dynamic_cast<Flexible*> ( h.get() );
   if ( e ){
     assert( e->GetNumSite() == 1 );
+    if ( isFixed ){
+      pv.Set(ep,vr);
+      return 1;
+    }
     const IntrParams& ip = e->GetIntrParams()[0];
     const double sig = ip.sig;
     const double eps = ip.eps;
@@ -401,6 +423,10 @@ int MonatomicMols::Force( const Intersite& im, const Truncation& rc, PotVir &pv 
   if ( e ){
     if ( e->GetNumSite() != 1 )
       exit(1);
+    if ( isFixed ){
+      pv.Set(ep,vr);
+      return 1;
+    }
     const IntrParams& ih = e->GetIntrParams()[0];
     double sig = ih.sig;
     double eps = ih.eps;
@@ -646,6 +672,9 @@ int MonatomicMols::Force_General(
 void 
 MonatomicMols::Translate( const Vector3& offset )
 {
+  if ( isFixed ){
+    return;
+  }
   int    nmol = mols.size();
   for( int j=0; j<nmol; j++ ){
     mols[j].Translate( offset );
@@ -658,6 +687,9 @@ MonatomicMols::Translate( const Vector3& offset )
 void
 MonatomicMols::ProgressPosition( double dt )
 {
+  if ( isFixed ){
+    return;
+  }
   int    nmol = mols.size();
   for( int j=0; j<nmol; j++ ){
     mols[j].ProgressPosition( dt );
@@ -669,6 +701,9 @@ MonatomicMols::ProgressPosition( double dt )
 void
 MonatomicMols::ProgressMomentum( double dt )
 {
+  if ( isFixed ){
+    return;
+  }
   int    nmol = mols.size();
   for( int j=0; j<nmol; j++ ){
     mols[j].ProgressMomentum( dt );
@@ -698,6 +733,10 @@ force_offset(
   if ( e1 && e2 ){
     assert( e1->GetNumSite() == 1 );
     assert( e2->GetNumSite() == 1 );
+    if ( m1.IsFixed() && m2.IsFixed() ){
+      pv.Set( ep, vr );
+      return 1;
+    }
     const IntrParams& i1 = e1->GetIntrParams()[0];
     const IntrParams& i2 = e2->GetIntrParams()[0];
     double sig = i1.sighalf + i2.sighalf;
@@ -796,6 +835,10 @@ force_offsetpbc(
   if ( e1 && e2 ){
     assert( e1->GetNumSite() == 1 );
     assert( e2->GetNumSite() == 1 );
+    if ( m1.IsFixed() && m2.IsFixed() ){
+      pv.Set( ep, vr );
+      return 1;
+    }
     const IntrParams& i1 = e1->GetIntrParams()[0];
     const IntrParams& i2 = e2->GetIntrParams()[0];
     double sig = i1.sighalf + i2.sighalf;
@@ -898,6 +941,10 @@ force_offset_simpler(
   if ( e1 && e2 ){
     assert( e1->GetNumSite() == 1 );
     assert( e2->GetNumSite() == 1 );
+    if ( m1.IsFixed() && m2.IsFixed() ){
+      pv.Set( ep, vr );
+      return 1;
+    }
     //const IntrParams& i1 = e1->GetIntrParams()[0];
     //const IntrParams& i2 = e2->GetIntrParams()[0];
     //double sig = i1.sighalf + i2.sighalf;
@@ -1003,6 +1050,10 @@ force_pbc(
   if ( e1 && e2 ){
     assert( e1->GetNumSite() == 1 );
     assert( e2->GetNumSite() == 1 );
+    if ( m1.IsFixed() && m2.IsFixed() ){
+      pv.Set( ep, vr );
+      return 1;
+    }
     const IntrParams& i1 = e1->GetIntrParams()[0];
     const IntrParams& i2 = e2->GetIntrParams()[0];
     double sig = i1.sighalf + i2.sighalf;

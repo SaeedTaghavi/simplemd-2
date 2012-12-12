@@ -19,10 +19,11 @@ class PolyatomicMols : public Mols
 protected:
 private:
   MolPropertyHandle prop;
+  int isFixed;
 public:
   vector<PolyatomicMol> mols;
 
-  PolyatomicMols( MolPropertyHandle );
+  PolyatomicMols( MolPropertyHandle, int isfixed );
   ~PolyatomicMols();
   void BoxCoordinate( const Box& box );
   MolsHandle Emmigrate( const Box &box );

@@ -22,12 +22,13 @@ class MonatomicMols : public Mols
 {
 private:
   MolPropertyHandle prop;
+  int isFixed;
 public:
   vector<MonatomicMol> mols;
   //vector<Vector3> f;
-  MonatomicMols();
-  MonatomicMols( MolPropertyHandle );
-  MonatomicMols( MolPropertyHandle, int nmol, const Unit& unit, FILE* input );
+  MonatomicMols( int isfixed );
+  MonatomicMols( MolPropertyHandle, int isfixed );
+  MonatomicMols( MolPropertyHandle, int nmol, const Unit& unit, FILE* input, int isfixed );
   virtual ~MonatomicMols();
   void BoxCoordinate( const Box& box );
   MolsHandle Emmigrate( const Box& box );
@@ -56,6 +57,7 @@ public:
 		 PotVir &pv );
   int Force_General( const MolsHandle& m, const Intersite& im, const TruncPair& truncpair, PotVir &pv );
   virtual double GetEk() const;
+  virtual int IsFixed() const;
   void GetEkt( Vector3& ekt ) const;
   void Preforce();
   SingleMolHandle Peek( int i ) const;
@@ -97,7 +99,7 @@ private:
 	       const Truncation& rc,
 	       PotVir &pv
 	       );
-  void init();
+  void init( int isfixed );
   MonatomicMol* pull( int i );
   void size( int n );
   int  push1( const MonatomicMol& mol );

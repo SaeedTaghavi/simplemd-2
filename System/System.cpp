@@ -47,6 +47,7 @@ double
 SimpleMD::Temperature( double ek )
 {
   // kT = 2 Ek / DoF
+  // ek excludes fixed molecules
   return ek*2.0 / dof;
 }
 
@@ -74,9 +75,9 @@ SimpleMD::log()
 {
   ostringstream logging;
   const Unit& u = *unit;
-  double ek = GetEk();
+  double ek = GetEk(); //excludes fixed molecules
   Vector3 ekt;
-  GetEkt( ekt );
+  GetEkt( ekt );       //excludes fixed molecules
   double ektrans = ekt.x + ekt.y + ekt.z;
   double idealpv = 2 * ektrans / 3;
   logging.precision(17);

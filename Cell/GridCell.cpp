@@ -424,6 +424,29 @@ GridCell::GetMass() const
 
 
 
+double
+GridCell::GetMobileMass() const
+{
+  double mass = 0;
+  for( int i=0; i<nc; i++ ){
+    mass += cells[i]->GetMobileMass();
+  }
+  return mass;
+}
+
+
+
+
+int
+GridCell::GetDoF() const
+{
+  int dof = 0;
+  for( int i=0; i<nc; i++ ){
+    dof += cells[i]->GetDoF();
+  }
+  return dof;
+}
+
 
 
 

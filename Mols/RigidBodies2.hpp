@@ -18,11 +18,12 @@ class RigidBodies2 : public Mols
 protected:
 private:
   MolPropertyHandle prop;
+  int isFixed;
 public:
   vector<RigidBody2> mols;
   //additional properties
   //end
-  RigidBodies2( const MolPropertyHandle& );
+  RigidBodies2( const MolPropertyHandle&, int isfixed );
   ~RigidBodies2();
   void BoxCoordinate( const Box& box );
   MolsHandle Emmigrate( const Box& box );
@@ -69,6 +70,7 @@ public:
   void Preforce();
   double GetEk() const;
   void GetEkt( Vector3& ekt ) const;
+  virtual int IsFixed() const;
   void ProgressPosition( double dt );
   void ProgressMomentum( double dt );
   void Translate( const Vector3& offset );

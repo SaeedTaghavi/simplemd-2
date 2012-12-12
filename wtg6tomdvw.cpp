@@ -14,13 +14,14 @@ int main( int argc, char* argv[] )
   map<string, FlexibleHandle> moldict;
   string current_id08;
   BoxHandle box;
+  const int isfixed = 0;
 
   while( NULL != fgets( buf, sizeof(buf), stdin ) ){
     string tag = string( buf );
     tag.resize(5);
     if ( tag == "@WTG6" || tag == "@NX4A" ){
       MolPropertyHandle ph = moldict[current_id08];
-      RigidBodies2 mol( ph );
+      RigidBodies2 mol( ph, isfixed );
       fgets( buf, sizeof( buf ), stdin );
       int nmol = atoi( buf );
       if ( tag == "@WTG6" ) {
