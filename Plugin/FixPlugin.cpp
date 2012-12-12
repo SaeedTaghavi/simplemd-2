@@ -30,7 +30,6 @@ FixHelper::HookL1( Mols* mols )
 void
 FixHelper::HookL0( SingleMolEntity* mol )
 {
-  //Z方向には外力を加え、XY方向は力を消す。
   MonatomicMol* mmh = dynamic_cast<MonatomicMol*> ( mol );
   if ( mmh ) {
     mmh->center.force.Set(0,0,0);
