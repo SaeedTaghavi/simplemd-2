@@ -98,7 +98,7 @@ public:
       return molecules;
     }
   //Write snapshot (coord only)
-  void SnapShot( ostream& out=cerr, int mode=0 );
+  void SnapShot( ostream& out=cerr, int fmt=0 );
 
   //One-line log for monitor.
   virtual string log();

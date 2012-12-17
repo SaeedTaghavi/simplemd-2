@@ -1,8 +1,8 @@
 FLAGS.plain= -I. -Wall #-DDEBUG
 FLAGS.profile=$(FLAGS.plain) #-Ktl_trt
 FLAGS.test=$(FLAGS.profile)  #-x10  #inline expansion
-CFLAGS.opt=$(FLAGS.test)    -g #-O3 #-march=native #-Kfast_GP2=3,largepage=2,V9 -Kparallel
-CCFLAGS.opt=$(FLAGS.test)   -g #-O3 #-ffast-math #-msse3 #-Kfast_GP2,largepage=2,V9 -Kparallel
+CFLAGS.opt=$(FLAGS.test)    -O3 #-march=native #-Kfast_GP2=3,largepage=2,V9 -Kparallel
+CCFLAGS.opt=$(FLAGS.test)   -O3 #-ffast-math #-msse3 #-Kfast_GP2,largepage=2,V9 -Kparallel
 #CCFLAGS.opt=$(FLAGS.test)   -g -pg -O3 #-Kfast_GP2,largepage=2,V9 -Kparallel
 
 # -Qp Compile List with parallel indications

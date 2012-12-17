@@ -64,6 +64,7 @@ extern "C" {
 #include "Integrator/NosePoincare.hpp"
 #include "Integrator/NosePoincareAndersen.hpp"
 #include "debug.hpp"
+#include "Const.hpp"
 
 using namespace std;
 using namespace boost;
@@ -345,6 +346,7 @@ public:
     int forceloaded = 1;
     int innerloop = 0;
     int fixnext = 0;
+    string fixtag = "";
     //cerr << "Simple::Read()" << endl;
     while( NULL != fgets( buf, sizeof(buf), input ) ){
       string tag = string( buf );
@@ -455,7 +457,17 @@ public:
         string id08 = string( buf );
         id08.resize( 8, ' ' );
         // interval plugin containing snapshot plugin
-        plugins.push_back( ProcessPluginHandle( new Interval( interval, new SnapShotOneComp( id08 ) ) ) );
+        plugins.push_back( ProcessPluginHandle( new Interval( interval, new SnapShotOneComp( id08, TRAJ_COORDONLY ) ) ) );
+      }
+      else if ( tag == "@SNP2" ){
+	fgets( buf, sizeof(buf), input );
+	int interval, format;
+	sscanf(buf, "%d %d\n", &interval, &format);
+        fgets( buf, sizeof(buf), input );
+        string id08 = string( buf );
+        id08.resize( 8, ' ' );
+        // interval plugin containing snapshot plugin
+        plugins.push_back( ProcessPluginHandle( new Interval( interval, new SnapShotOneComp( id08, format ) ) ) );
       }
       else if ( tag == "@NLOG" )  {
 	fgets( buf, sizeof(buf), input );
@@ -503,6 +515,13 @@ public:
 				//molecular-level position fixing.
 				fgets( buf, sizeof( buf ), input );
 				fixnext = atoi(buf);
+      }
+      else if ( tag == "@FIXY" )  {
+	//molecular-level position fixing.
+        //At not, only one component can be specified.
+        fgets( buf, sizeof(buf), input );
+        fixtag = string( buf );
+        fixtag.resize( 8, ' ' );
       }
       else if ( tag == "@INNR" ) {
 	fgets( buf, sizeof(buf), input );
@@ -557,36 +576,37 @@ public:
         FlexibleHandle ph = moldict[current_id08];
         //ph->SetSize( nmol );
         MolsHandle mh;
+	int fixbytag = ( current_id08 == fixtag );
         if ( tag == "@AR3A" ){
-          MonatomicMols* mm = new MonatomicMols( ph, fixnext );
+          MonatomicMols* mm = new MonatomicMols( ph, fixnext || fixbytag );
           mh = MolsHandle( mm );
           mm->ReadAR3A( nmol, *box, *unit, input );
           forceloaded = 0;
         }
         else if ( tag == "@NX4B" ){
-          RigidBodies* mm = new RigidBodies( ph, fixnext );
+          RigidBodies* mm = new RigidBodies( ph, fixnext || fixbytag );
           mh = MolsHandle( mm );
           mm->ReadNX4A( nmol, *box, *unit, input );
           forceloaded = 0;
         }
         else if ( tag == "@NX4A" ){
-          RigidBodies2* mm = new RigidBodies2( ph, fixnext );
+          RigidBodies2* mm = new RigidBodies2( ph, fixnext || fixbytag );
           mh = MolsHandle( mm );
           mm->ReadNX4A( nmol, *box, *unit, input );
           forceloaded = 0;
         }
         else if ( tag == "@WTG5" ){
-          RigidBodies* mm = new RigidBodies( ph, fixnext );
+          RigidBodies* mm = new RigidBodies( ph, fixnext || fixbytag );
           mh = MolsHandle( mm );
           mm->ReadWTG5( nmol, *unit, input );
         }
         else if ( tag == "@WTG6" ){
-          RigidBodies2* mm = new RigidBodies2( ph, fixnext );
+          RigidBodies2* mm = new RigidBodies2( ph, fixnext || fixbytag );
           mh = MolsHandle( mm );
           mm->ReadWTG6( nmol, *unit, input );
         }
         else if ( tag == "@ATG5" ){
-          mh = MolsHandle( new MonatomicMols( ph, nmol, *unit, input, fixnext ) );
+          mh = MolsHandle( new MonatomicMols( ph, nmol, *unit, input, fixnext || fixbytag ) );
         }
 	fixnext = 0;
         if ( cell == 0 ){

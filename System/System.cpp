@@ -2,6 +2,7 @@
 #include "System/SimpleMD.hpp"
 #include "debug.hpp"
 #include "FileIO.hpp"
+#include "Const.hpp"
 #include <sstream>
 #include "Plugin/PairProcessPlugin.hpp"
 
@@ -20,13 +21,15 @@ SimpleMD::write(){
 
 //Write snapshot (under construction)
 void 
-SimpleMD::SnapShot( ostream& out, int mode ){
+SimpleMD::SnapShot( ostream& out, int fmt ){
   out << "@TABS" << endl
          << absoluteTime / ( pico * unit->sec ) << endl;
-  if ( mode == 0 )
+  if ( fmt == TRAJ_COORDONLY ){
     molecules->SnapShot( *unit, dt, out );
-  else if ( mode == 1)
+  }
+  else if ( fmt == TRAJ_FULL ){
     molecules->Write( *unit, dt, out );
+  }
 }
 
 
