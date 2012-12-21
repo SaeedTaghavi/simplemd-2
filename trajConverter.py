@@ -29,8 +29,10 @@ def output_mdview(atoms):
         print label,x,y,z
 
 
-
+ncmp = 1 #number of components
+icmp = 0
 defr = dict()
+atoms = []
 while True:
     #read a line, anyway
     line = sys.stdin.readline()
@@ -41,6 +43,11 @@ while True:
         continue
     #look up tags
     tag = columns[0]
+    if tag in  ('@NCMP',):
+        line = sys.stdin.readline()
+        ncmp = int(line)
+        atoms = []
+        icmp = 0
     if tag in  ('@ID08',):
         line = sys.stdin.readline()
         id08 = line[0:8]
@@ -74,6 +81,24 @@ while True:
             columns = map(float,columns[0:3])
             intr.append(columns)
         defr[id] = (sites,intr)
+    elif tag in  ('@DEFP',):
+        line = sys.stdin.readline()
+        id = line[0:8]
+        line = sys.stdin.readline()
+        nsite = int(line)
+        sites = []
+        intr  = []
+        for site in range(nsite):
+            line = sys.stdin.readline()
+            columns = line.split()  # mass,label
+            columns = [0.0, 0.0, 0.0, float(columns[0]), columns[1]]
+            sites.append(columns)
+        for site in range(nsite):
+            line = sys.stdin.readline()
+            columns = line.split() #eps, sig, charge
+            columns = map(float,columns[0:3])
+            intr.append(columns)
+        defr[id] = (sites,intr)
     elif tag in  ('@WTG6', '@WTG3', '@NX4A', '@NX3A'):
         #get the first line == number of molecules
         line = sys.stdin.readline()
@@ -87,7 +112,6 @@ while True:
         if mode in ("-3", "-4"):
             print nmol
         #read molecular info
-        atoms = []
         mols = []
         for i in range(nmol):
             line = sys.stdin.readline()
@@ -121,7 +145,11 @@ while True:
                 quat = rotmat2quat(rotmat)
                 print cx,cy,cz,quat[0],quat[1],quat[2],quat[3]
         if mode == "-m":
-            output_mdview(atoms)
+            icmp += 1
+            if icmp == ncmp:
+                output_mdview(atoms)
+                icmp = 0
+                atoms = []
         if mode == "-n":
             print "@NGPH"
             print len(mols)
@@ -152,4 +180,26 @@ while True:
                         else:
                             print j,i
             print -1,-1
+    elif tag in  ('@AR3A',):
+        #get the first line == number of molecules
+        line = sys.stdin.readline()
+        columns = line.split()
+        nmol = int(columns[0])
+        #read molecular info
+        for i in range(nmol):
+            line = sys.stdin.readline()
+            columns = line.split()
+            cx,cy,cz = map(float,columns[0:3])
+            if mode in ("-m", "-n"):
+                mol = defr[id08]
+                intra = []
+                for site in mol[0]:
+                    x,y,z,mass,label = site
+                    atoms.append((label, cx,cy,cz))
+        if mode == "-m":
+            icmp += 1
+            if icmp == ncmp:
+                output_mdview(atoms)
+                icmp = 0
+                atoms = []
                             
