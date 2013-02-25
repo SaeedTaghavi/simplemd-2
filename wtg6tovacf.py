@@ -4,10 +4,14 @@
 import sys
 
 # 1cm-1 = 33ps
-LEN = 330
+# LEN=330: when 1 frame / every 100 fs, 330 frames corresponds to 33ps.
+#LEN = 330     #longest time span determines the minimum wave number.
+LEN=3300
+INTERVAL = 100 #set it smaller if you want finer stat
 vel = []
-vacf = [0.0 for i in range(6)] * LEN
+vacf = [[0.0 for i in range(6)] for j in range(LEN)]
 count = [0.0] * LEN
+frame = 0
 while True:
     #read a line, anyway
     line = sys.stdin.readline()
@@ -34,8 +38,19 @@ while True:
                 vel[-1][i] = map(float,columns[12:18])
             elif tag == '@WTG3':
                 vel[-1][i] = map(float,columns[7:13])
-            for j in range(len(vel)):
-                for k in range(6):
-                    vacf[len(vel)-j][k] += vel[-1][i][k] * vel[j][i][k]
-                count[len(vel)-j] += 1
+        if frame % INTERVAL == 0:
+            for i in range(nmol):
+                for j in range(len(vel)):
+                    for k in range(6):
+                        vacf[len(vel)-j-1][k] += vel[-1][i][k] * vel[j][i][k]
+                    count[len(vel)-j-1] += 1
+            sys.stderr.write("[%s:%s]" % (frame,len(vel)))
+        frame += 1
+
+#test
+for i in range(len(count)):
+    print i,
+    for k in range(6):
+        print vacf[i][k]/count[i],
+    print
 
