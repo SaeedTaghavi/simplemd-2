@@ -13,3 +13,6 @@ test1
 test1.cpp
 *.pyc
 TEST-izumi
+@*
+Test
+#*
