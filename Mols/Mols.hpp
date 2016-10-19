@@ -11,7 +11,7 @@
 #include "Interaction/ListVector.hpp"
 
 using namespace std;
-using namespace boost;
+//using namespace boost;
 
 /*
  *同種分子の集合体を規定するクラス。Layer 1
@@ -25,7 +25,7 @@ class TruncPair;
 class CollectorPlugin;
 class PairProcessPlugin;
 
-typedef shared_ptr<Mols> MolsHandle;
+typedef std::shared_ptr<Mols> MolsHandle;
 typedef vector<MolsHandle> MolsArray;
 
 

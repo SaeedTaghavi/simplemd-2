@@ -1,3 +1,4 @@
+#include <cassert>
 #include "Plugin/Zumbrella.hpp"
 #include "System/SimpleMD.hpp"
 #include "Cell/Cell.hpp"
@@ -18,8 +19,8 @@ ZumbrellaHelper::HookL1( Mols* mols )
 {
   MolPropertyHandle property = mols->GetProperty();
   if ( property->id08 == id08 ){
-    MonatomicMols* mmh = dynamic_cast<MonatomicMols*> ( mols );
-    assert( mmh );
+    //MonatomicMols* mmh = dynamic_cast<MonatomicMols*> ( mols );
+    //assert( mmh );
     int nmol = mols->Size();
     assert( nmol == 1 );
     //単原子分子で、しかもid08が一致する場合に限り、下位を呼びだす。

@@ -82,13 +82,13 @@ void NosePoincareAndersen::ReadNOPA( const Unit& unit, FILE* file )
   char buf[1000];
   fgets( buf, sizeof ( buf ), file );
   sscanf( buf, "%lf %lf %lf %lf %lf %lf %lf %lf\n", &kT, &Pext, &s, &ps, &Qs, &pv, &Qv, &H0);
-  ps *= ( pico * unit.sec ) * ( kilo * unit.J / mol );
-  Qs *= ( pico * unit.sec ) * ( pico * unit.sec ) * ( kilo * unit.J / mol );
-  H0 *= ( kilo * unit.J / mol );
+  ps *= ( SI::pico * unit.sec ) * ( SI::kilo * unit.J / mol );
+  Qs *= ( SI::pico * unit.sec ) * ( SI::pico * unit.sec ) * ( SI::kilo * unit.J / mol );
+  H0 *= ( SI::kilo * unit.J / mol );
   kT *= ( unit.K() );
   Pext *= ( unit.atm() );
-  pv *= ( pico * unit.sec ) * ( unit.Pa );
-  Qv *= ( pico * unit.sec ) * ( pico * unit.sec ) * ( unit.Pa ) / pow( Angstro * unit.m, 3 );
+  pv *= ( SI::pico * unit.sec ) * ( unit.Pa );
+  Qv *= ( SI::pico * unit.sec ) * ( SI::pico * unit.sec ) * ( unit.Pa ) / pow( Angstro * unit.m, 3 );
 }
 
 
@@ -99,11 +99,11 @@ void NosePoincareAndersen::WriteNOPA( const Unit& unit, ostream& to )
      << kT / ( unit.K() )
      << " " << Pext / ( unit.atm() )
      << " " << s
-     << " " << ps / ( pico * unit.sec * kilo * unit.J / mol )
-     << " " << Qs / ( pico * unit.sec * pico * unit.sec * kilo * unit.J / mol )
-     << " " << pv / ( pico * unit.sec * unit.Pa )
-     << " " << Qv / ( pico * unit.sec * pico * unit.sec * unit.Pa / pow( Angstro * unit.m, 3 ) )
-     << " " << H0 / ( kilo * unit.J / mol ) << endl;
+     << " " << ps / ( SI::pico * unit.sec * SI::kilo * unit.J / mol )
+     << " " << Qs / ( SI::pico * unit.sec * SI::pico * unit.sec * SI::kilo * unit.J / mol )
+     << " " << pv / ( SI::pico * unit.sec * unit.Pa )
+     << " " << Qv / ( SI::pico * unit.sec * SI::pico * unit.sec * unit.Pa / pow( Angstro * unit.m, 3 ) )
+     << " " << H0 / ( SI::kilo * unit.J / mol ) << endl;
 }
 
 
@@ -114,11 +114,11 @@ void NosePoincareAndersen::WriteNPAZ( const Unit& unit, ostream& to )
      << kT / ( unit.K() )
      << " " << Pext / ( unit.atm() )
      << " " << s
-     << " " << ps / ( pico * unit.sec * kilo * unit.J / mol )
-     << " " << Qs / ( pico * unit.sec * pico * unit.sec * kilo * unit.J / mol )
-     << " " << pv / ( pico * unit.sec * unit.Pa )
-     << " " << Qv / ( pico * unit.sec * pico * unit.sec * unit.Pa / pow( Angstro * unit.m, 3 ) )
-     << " " << H0 / ( kilo * unit.J / mol ) << endl;
+     << " " << ps / ( SI::pico * unit.sec * SI::kilo * unit.J / mol )
+     << " " << Qs / ( SI::pico * unit.sec * SI::pico * unit.sec * SI::kilo * unit.J / mol )
+     << " " << pv / ( SI::pico * unit.sec * unit.Pa )
+     << " " << Qv / ( SI::pico * unit.sec * SI::pico * unit.sec * unit.Pa / pow( Angstro * unit.m, 3 ) )
+     << " " << H0 / ( SI::kilo * unit.J / mol ) << endl;
 }
 
 
@@ -137,10 +137,10 @@ void NosePoincareAndersen::ReadSNPH( const Unit& unit, FILE* file )
   char buf[1000];
   fgets( buf, sizeof ( buf ), file );
   sscanf( buf, "%lf %lf %lf %lf\n", &Pext, &pv, &Qv, &H0);
-  H0 *= ( kilo * unit.J / mol );
+  H0 *= ( SI::kilo * unit.J / mol );
   Pext *= ( unit.atm() );
-  pv *= ( pico * unit.sec ) * ( unit.Pa );
-  Qv *= ( pico * unit.sec ) * ( pico * unit.sec ) * ( unit.Pa ) / pow( Angstro * unit.m, 3 );
+  pv *= ( SI::pico * unit.sec ) * ( unit.Pa );
+  Qv *= ( SI::pico * unit.sec ) * ( SI::pico * unit.sec ) * ( unit.Pa ) / pow( Angstro * unit.m, 3 );
   s = 1.0;
   ps = 0.0;
   Qs = 1e99;
@@ -155,9 +155,9 @@ void NosePoincareAndersen::WriteSNPH( const Unit& unit, ostream& to )
 {
   to << "@SNPH\n"
      << " " << Pext / ( unit.atm() )
-     << " " << pv / ( pico * unit.sec * unit.Pa )
-     << " " << Qv / ( pico * unit.sec * pico * unit.sec * unit.Pa / pow( Angstro * unit.m, 3 ) )
-     << " " << H0 / ( kilo * unit.J / mol ) << "\n";
+     << " " << pv / ( SI::pico * unit.sec * unit.Pa )
+     << " " << Qv / ( SI::pico * unit.sec * SI::pico * unit.sec * unit.Pa / pow( Angstro * unit.m, 3 ) )
+     << " " << H0 / ( SI::kilo * unit.J / mol ) << "\n";
 }
 
 

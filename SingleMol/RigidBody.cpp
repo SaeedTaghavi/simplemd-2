@@ -1,5 +1,6 @@
 #include <cstring>
 #include <cstdio>
+#include <cassert>
 #include "SingleMol/RigidBody.hpp"
 #include "debug.hpp"
 #include "Interaction/Truncation.hpp"
@@ -412,26 +413,26 @@ RigidBody::WriteWTG5( const Unit& u, ostream& to )
      << " " << q.c
      << " " << q.d
     //convert from internal unit to A/ps
-     << " " << velocity.x / ( Angstro * u.m / (pico * u.sec) )
-     << " " << velocity.y / ( Angstro * u.m / (pico * u.sec) )
-     << " " << velocity.z / ( Angstro * u.m / (pico * u.sec) )
+     << " " << velocity.x / ( Angstro * u.m / (SI::pico * u.sec) )
+     << " " << velocity.y / ( Angstro * u.m / (SI::pico * u.sec) )
+     << " " << velocity.z / ( Angstro * u.m / (SI::pico * u.sec) )
     //   unit is /ps
-     << " " << dq.a / ( 1 / (pico * u.sec) )
-     << " " << dq.b / ( 1 / (pico * u.sec) )
-     << " " << dq.c / ( 1 / (pico * u.sec) )
-     << " " << dq.d / ( 1 / (pico * u.sec) )
+     << " " << dq.a / ( 1 / (SI::pico * u.sec) )
+     << " " << dq.b / ( 1 / (SI::pico * u.sec) )
+     << " " << dq.c / ( 1 / (SI::pico * u.sec) )
+     << " " << dq.d / ( 1 / (SI::pico * u.sec) )
     //  unit is rad/ps
-     << " " << w.x / ( u.radian / (pico * u.sec) )
-     << " " << w.y / ( u.radian / (pico * u.sec) )
-     << " " << w.z / ( u.radian / (pico * u.sec) )
+     << " " << w.x / ( u.radian / (SI::pico * u.sec) )
+     << " " << w.y / ( u.radian / (SI::pico * u.sec) )
+     << " " << w.z / ( u.radian / (SI::pico * u.sec) )
     //  unit is kJ/mol/A
-     << " " << com.center.force.x / ( kilo * u.J / (mol * Angstro * u.m ) )
-     << " " << com.center.force.y / ( kilo * u.J / (mol * Angstro * u.m ) )
-     << " " << com.center.force.z / ( kilo * u.J / (mol * Angstro * u.m ) )
+     << " " << com.center.force.x / ( SI::kilo * u.J / (mol * Angstro * u.m ) )
+     << " " << com.center.force.y / ( SI::kilo * u.J / (mol * Angstro * u.m ) )
+     << " " << com.center.force.z / ( SI::kilo * u.J / (mol * Angstro * u.m ) )
     //  unit is kJ/mol/A * A == kJ/mol(!)
-     << " " << torque.x / ( kilo * u.J / mol )
-     << " " << torque.y / ( kilo * u.J / mol )
-     << " " << torque.z / ( kilo * u.J / mol )
+     << " " << torque.x / ( SI::kilo * u.J / mol )
+     << " " << torque.y / ( SI::kilo * u.J / mol )
+     << " " << torque.z / ( SI::kilo * u.J / mol )
      << " " << order << '\n';
 }
 
@@ -471,23 +472,23 @@ RigidBody::ReadWTG5( int o, const Unit& u, FILE* file )
   q.c    = atof(strtok(NULL," \t"));
   q.d    = atof(strtok(NULL," \t"));
   Vector3 velocity;
-  velocity.x = atof(strtok(NULL," \t")) * ( Angstro * u.m / (pico * u.sec) );
-  velocity.y = atof(strtok(NULL," \t")) * ( Angstro * u.m / (pico * u.sec) );
-  velocity.z = atof(strtok(NULL," \t")) * ( Angstro * u.m / (pico * u.sec) );
+  velocity.x = atof(strtok(NULL," \t")) * ( Angstro * u.m / (SI::pico * u.sec) );
+  velocity.y = atof(strtok(NULL," \t")) * ( Angstro * u.m / (SI::pico * u.sec) );
+  velocity.z = atof(strtok(NULL," \t")) * ( Angstro * u.m / (SI::pico * u.sec) );
   com.SetVelocity( velocity );
-  dq.a    = atof(strtok(NULL," \t")) * ( 1 / (pico * u.sec) );
-  dq.b    = atof(strtok(NULL," \t")) * ( 1 / (pico * u.sec) );
-  dq.c    = atof(strtok(NULL," \t")) * ( 1 / (pico * u.sec) );
-  dq.d    = atof(strtok(NULL," \t")) * ( 1 / (pico * u.sec) );
-  w.x    = atof(strtok(NULL," \t")) * ( u.radian / (pico * u.sec) );
-  w.y    = atof(strtok(NULL," \t")) * ( u.radian / (pico * u.sec) );
-  w.z    = atof(strtok(NULL," \t")) * ( u.radian / (pico * u.sec) );
-  com.center.force.x    = atof(strtok(NULL," \t")) * ( kilo * u.J / (mol * Angstro * u.m ) );
-  com.center.force.y    = atof(strtok(NULL," \t")) * ( kilo * u.J / (mol * Angstro * u.m ) );
-  com.center.force.z    = atof(strtok(NULL," \t")) * ( kilo * u.J / (mol * Angstro * u.m ) );
-  torque.x    = atof(strtok(NULL," \t")) * ( kilo * u.J / mol );
-  torque.y    = atof(strtok(NULL," \t")) * ( kilo * u.J / mol );
-  torque.z    = atof(strtok(NULL," \t")) * ( kilo * u.J / mol );
+  dq.a    = atof(strtok(NULL," \t")) * ( 1 / (SI::pico * u.sec) );
+  dq.b    = atof(strtok(NULL," \t")) * ( 1 / (SI::pico * u.sec) );
+  dq.c    = atof(strtok(NULL," \t")) * ( 1 / (SI::pico * u.sec) );
+  dq.d    = atof(strtok(NULL," \t")) * ( 1 / (SI::pico * u.sec) );
+  w.x    = atof(strtok(NULL," \t")) * ( u.radian / (SI::pico * u.sec) );
+  w.y    = atof(strtok(NULL," \t")) * ( u.radian / (SI::pico * u.sec) );
+  w.z    = atof(strtok(NULL," \t")) * ( u.radian / (SI::pico * u.sec) );
+  com.center.force.x    = atof(strtok(NULL," \t")) * ( SI::kilo * u.J / (mol * Angstro * u.m ) );
+  com.center.force.y    = atof(strtok(NULL," \t")) * ( SI::kilo * u.J / (mol * Angstro * u.m ) );
+  com.center.force.z    = atof(strtok(NULL," \t")) * ( SI::kilo * u.J / (mol * Angstro * u.m ) );
+  torque.x    = atof(strtok(NULL," \t")) * ( SI::kilo * u.J / mol );
+  torque.y    = atof(strtok(NULL," \t")) * ( SI::kilo * u.J / mol );
+  torque.z    = atof(strtok(NULL," \t")) * ( SI::kilo * u.J / mol );
   rot.Set( q.a, q.b, q.c, q.d );
 }
 

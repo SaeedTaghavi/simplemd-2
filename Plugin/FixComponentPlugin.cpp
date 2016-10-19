@@ -19,22 +19,22 @@
 void
 FixComponentHelper::HookL2( Cell* cell )
 {
-	//bypass the dig-in mechanism
-	SimpleCell* sch = dynamic_cast<SimpleCell*> ( cell );
-	if ( sch ){
-	  this->HookL1( sch->mols[compo].get() );
-	}
-	else{
-		GridCell* gch = dynamic_cast<GridCell*> ( cell );
-		assert (gch );
-		int nc = gch->GetNumCells();
-	  for( int c=0; c<nc; c++ ){
-			const RelocatableCellHandle rc = gch->GetCell(c);
-		//			/should be called recursively, but failed.
-		  this->HookL1( rc->mols[compo].get() );
-		}
+  //bypass the dig-in mechanism
+  SimpleCell* sch = dynamic_cast<SimpleCell*> ( cell );
+  if ( sch ){
+    this->HookL1( sch->mols[compo].get() );
   }
-	//	cout << "FixComponentHelper::HookL2 - " << compo << endl;
+  else{
+    GridCell* gch = dynamic_cast<GridCell*> ( cell );
+    assert (gch );
+    int nc = gch->GetNumCells();
+    for( int c=0; c<nc; c++ ){
+      const RelocatableCellHandle rc = gch->GetCell(c);
+      //			/should be called recursively, but failed.
+      this->HookL1( rc->mols[compo].get() );
+    }
+  }
+  //	cout << "FixComponentHelper::HookL2 - " << compo << endl;
 }
 
 
@@ -44,13 +44,19 @@ FixComponentHelper::HookL0( SingleMolEntity* mol )
   MonatomicMol* mmh = dynamic_cast<MonatomicMol*> ( mol );
   if ( mmh ) {
     mmh->center.force.Set(0,0,0);
-	}
-	else{
-	  RigidBody2* mmh = dynamic_cast<RigidBody2*> ( mol );
-	  assert(mmh);
-		mmh->com.center.force.Set(0,0,0);
-		mmh->torque.Set(0,0,0);
-	}
+  }
+  else{
+    RigidBody2* mmh = dynamic_cast<RigidBody2*> ( mol );
+    assert(mmh);
+    //Hook position is moved from AFTER PostForce to BEFORE PostForce.
+    //That is, not the collective force and torque but the force on the atom must be changed.
+    //mmh->com.center.force.Set(0,0,0);
+    //mmh->torque.Set(0,0,0);
+    int nsite = mmh->atom.size();
+    for(int site=0;site<nsite;site++ ){
+      mmh->atom[site].center.force.Set(0,0,0);
+    }
+  }
 }
 
 

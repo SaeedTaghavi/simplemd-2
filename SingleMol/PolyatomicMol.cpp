@@ -1,3 +1,4 @@
+#include <cassert>
 #include "SingleMol/PolyatomicMol.hpp"
 #include "debug.hpp"
 

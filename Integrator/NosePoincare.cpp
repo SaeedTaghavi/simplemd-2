@@ -54,9 +54,9 @@ void NosePoincare::ReadNOPO( const Unit& unit, FILE* file )
   char buf[1000];
   fgets( buf, sizeof ( buf ), file );
   sscanf( buf, "%lf %lf %lf %lf %lf\n", &kT, &s, &ps, &Q, &H0);
-  ps *= ( pico * unit.sec ) * ( kilo * unit.J / mol );
-  Q  *= ( pico * unit.sec ) * ( pico * unit.sec ) * ( kilo * unit.J / mol );
-  H0 *= ( kilo * unit.J / mol );
+  ps *= ( SI::pico * unit.sec ) * ( SI::kilo * unit.J / mol );
+  Q  *= ( SI::pico * unit.sec ) * ( SI::pico * unit.sec ) * ( SI::kilo * unit.J / mol );
+  H0 *= ( SI::kilo * unit.J / mol );
   kT *= ( unit.K() );
 }
 
@@ -67,9 +67,9 @@ void NosePoincare::WriteNOPO( const Unit& unit, ostream& to )
   to << "@NOPO\n"
      << kT / ( unit.K() )
      << " " << s
-     << " " << ps / ( pico * unit.sec * kilo * unit.J / mol )
-     << " " << Q  / ( pico * unit.sec * pico * unit.sec * kilo * unit.J / mol )
-     << " " << H0 / ( kilo * unit.J / mol ) << "\n";
+     << " " << ps / ( SI::pico * unit.sec * SI::kilo * unit.J / mol )
+     << " " << Q  / ( SI::pico * unit.sec * SI::pico * unit.sec * SI::kilo * unit.J / mol )
+     << " " << H0 / ( SI::kilo * unit.J / mol ) << "\n";
 }
 
 

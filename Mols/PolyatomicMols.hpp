@@ -6,7 +6,7 @@
 #include "Mols/Mols.hpp"
 
 using namespace std;
-using namespace boost;
+//using namespace boost;
 
 /*
  *PolyatomicMols is a set of polyatomic molecules.

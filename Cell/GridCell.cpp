@@ -1,3 +1,4 @@
+#include <cassert>
 #include "Cell/GridCell.hpp"
 #include "debug.hpp"
 

@@ -9,7 +9,7 @@
 #include "Mols/Mols.hpp"
 
 using namespace std;
-using namespace boost;
+//using namespace boost;
 
 /*
  *RigidBodies is a set of polyatomic molecules.

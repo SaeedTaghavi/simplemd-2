@@ -1,5 +1,6 @@
 #ifndef GRIDCELL_HPP
 #define GRIDCELL_HPP
+#include <cassert>
 #include "Cell/Cell.hpp"
 
 /*

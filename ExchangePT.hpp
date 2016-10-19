@@ -1,7 +1,7 @@
 #ifndef EXCHANGEPT_HPP
 #define EXCHANGEPT_HPP
 #include <boost/utility.hpp>
-#include <boost/shared_ptr.hpp>
+//#include <boost/shared_ptr.hpp>
 #include "Random.hpp"
 #include "Exchange.hpp"
 

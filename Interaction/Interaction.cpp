@@ -144,7 +144,7 @@ IntrParams::read( FILE* const file, const Unit& u )
   fgets(buf,BUFSIZE,file);
   sscanf(buf,"%lf %lf %lf\n",&e, &s, &c);
   //cerr << "E"<< e <<":S" << s <<":C" << c << endl;
-  e *= kilo * u.J / mol;
+  e *= SI::kilo * u.J / mol;
   s *= Angstro * u.m;
   c *= u.coulomb;
   set( e, s, c );
@@ -175,7 +175,7 @@ void
 IntrParams::Write( const Unit& u, ostream& to ) const
 {
   double e,s,c;
-  e = eps / ( kilo * u.J / mol );
+  e = eps / ( SI::kilo * u.J / mol );
   s = sig / ( Angstro * u.m );
   c = charge / ( u.coulomb );
   to << e

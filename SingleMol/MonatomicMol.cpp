@@ -151,13 +151,13 @@ MonatomicMol::WriteATG5( const Unit& u, ostream& to )
      << " " << center.coord.y / ( Angstro * u.m )
      << " " << center.coord.z / ( Angstro * u.m )
     //convert from internal unit to A/ps
-     << " " << velocity.x / ( Angstro * u.m / (pico * u.sec) )
-     << " " << velocity.y / ( Angstro * u.m / (pico * u.sec) )
-     << " " << velocity.z / ( Angstro * u.m / (pico * u.sec) )
+     << " " << velocity.x / ( Angstro * u.m / (SI::pico * u.sec) )
+     << " " << velocity.y / ( Angstro * u.m / (SI::pico * u.sec) )
+     << " " << velocity.z / ( Angstro * u.m / (SI::pico * u.sec) )
     //  unit is kJ/mol/A
-     << " " << center.force.x / ( kilo * u.J / (mol * Angstro * u.m ) )
-     << " " << center.force.y / ( kilo * u.J / (mol * Angstro * u.m ) )
-     << " " << center.force.z / ( kilo * u.J / (mol * Angstro * u.m ) )
+     << " " << center.force.x / ( SI::kilo * u.J / (mol * Angstro * u.m ) )
+     << " " << center.force.y / ( SI::kilo * u.J / (mol * Angstro * u.m ) )
+     << " " << center.force.z / ( SI::kilo * u.J / (mol * Angstro * u.m ) )
      << " " << order << endl;
 }
 
@@ -191,12 +191,12 @@ MonatomicMol::ReadATG5( int o, const Unit& u, FILE* file )
   center.coord.x = atof(strtok(buf," \t")) * Angstro * u.m;
   center.coord.y = atof(strtok(NULL," \t")) * Angstro * u.m;
   center.coord.z = atof(strtok(NULL," \t")) * Angstro * u.m;
-  velocity.x = atof(strtok(NULL," \t")) * ( Angstro * u.m / (pico * u.sec) );
-  velocity.y = atof(strtok(NULL," \t")) * ( Angstro * u.m / (pico * u.sec) );
-  velocity.z = atof(strtok(NULL," \t")) * ( Angstro * u.m / (pico * u.sec) );
-  center.force.x    = atof(strtok(NULL," \t")) * ( kilo * u.J / (mol * Angstro * u.m ) );
-  center.force.y    = atof(strtok(NULL," \t")) * ( kilo * u.J / (mol * Angstro * u.m ) );
-  center.force.z    = atof(strtok(NULL," \t")) * ( kilo * u.J / (mol * Angstro * u.m ) );
+  velocity.x = atof(strtok(NULL," \t")) * ( Angstro * u.m / (SI::pico * u.sec) );
+  velocity.y = atof(strtok(NULL," \t")) * ( Angstro * u.m / (SI::pico * u.sec) );
+  velocity.z = atof(strtok(NULL," \t")) * ( Angstro * u.m / (SI::pico * u.sec) );
+  center.force.x    = atof(strtok(NULL," \t")) * ( SI::kilo * u.J / (mol * Angstro * u.m ) );
+  center.force.y    = atof(strtok(NULL," \t")) * ( SI::kilo * u.J / (mol * Angstro * u.m ) );
+  center.force.z    = atof(strtok(NULL," \t")) * ( SI::kilo * u.J / (mol * Angstro * u.m ) );
 }
 
 

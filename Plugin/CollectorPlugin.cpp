@@ -1,3 +1,4 @@
+#include <cassert>
 #include "Plugin/CollectorPlugin.hpp"
 #include "Cell/Cell.hpp"
 #include "Mols/Mols.hpp"

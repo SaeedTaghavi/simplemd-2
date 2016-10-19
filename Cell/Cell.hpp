@@ -158,7 +158,7 @@ public:
 };
 
 
-typedef shared_ptr<RelocatableCell> RelocatableCellHandle;
+typedef std::shared_ptr<RelocatableCell> RelocatableCellHandle;
 
 /*
 template<class Cell, class Agent, class Arg> class cell_execute

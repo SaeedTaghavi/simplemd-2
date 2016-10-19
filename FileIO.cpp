@@ -1,4 +1,5 @@
 #include <cstring>
+#include <cassert>
 #include "FileIO.hpp"
 
 /*
@@ -169,7 +170,7 @@ Read( PolyatomicMol& m, int o, FILE* file, const Unit& u )
 void WriteDTPS( double dt, const Unit& unit, ostream& to )
 {
   to << "@DTPS" << endl
-     << dt / ( pico * unit.sec ) << endl;
+     << dt / ( SI::pico * unit.sec ) << endl;
 };
 
 

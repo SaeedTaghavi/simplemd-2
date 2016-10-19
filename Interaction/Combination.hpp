@@ -1,7 +1,7 @@
 #ifndef COMBINATION_HPP
 #define COMBINATION_HPP
 #include <vector>
-#include <boost/shared_ptr.hpp>
+//#include <boost/shared_ptr.hpp>
 #include "Unit.hpp"
 #include "Vector3.hpp"
 #include "MolProperty.hpp"
@@ -33,7 +33,7 @@ public:
 };
 
 
-typedef shared_ptr<Intersite> IntersiteHandle;
+typedef std::shared_ptr<Intersite> IntersiteHandle;
 
 
 /*

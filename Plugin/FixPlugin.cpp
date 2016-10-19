@@ -1,3 +1,4 @@
+#include <cassert>
 #include "Plugin/CollectorPlugin.hpp"
 #include "System/SimpleMD.hpp"
 #include "Plugin/FixPlugin.hpp"
@@ -33,14 +34,20 @@ FixHelper::HookL0( SingleMolEntity* mol )
   MonatomicMol* mmh = dynamic_cast<MonatomicMol*> ( mol );
   if ( mmh ) {
     mmh->center.force.Set(0,0,0);
-	}
-	else{
-	  RigidBody2* mmh = dynamic_cast<RigidBody2*> ( mol );
-	  assert(mmh);
-		mmh->com.center.force.Set(0,0,0);
-		mmh->torque.Set(0,0,0);
-	}
-	//  cout << "FixHelper::HookL0" << endl;
+  }
+  else{
+    RigidBody2* mmh = dynamic_cast<RigidBody2*> ( mol );
+    assert(mmh);
+    //Hook position is moved from AFTER PostForce to BEFORE PostForce.
+    //That is, not the collective force and torque but the force on the atom must be changed.
+    //mmh->com.center.force.Set(0,0,0);
+    //mmh->torque.Set(0,0,0);
+    int nsite = mmh->atom.size();
+    for(int site=0;site<nsite;site++ ){
+      mmh->atom[site].center.force.Set(0,0,0);
+    }
+  }
+  //  cout << "FixHelper::HookL0" << endl;
 }
 
 

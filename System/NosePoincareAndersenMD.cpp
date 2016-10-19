@@ -1,4 +1,5 @@
 #include <sstream>
+#include <cassert>
 #include "debug.hpp"
 #include "System/NosePoincareAndersenMD.hpp"
 #include "Plugin/CollectorPlugin.hpp"
@@ -119,11 +120,11 @@ NosePoincareAndersenMD::log()
   logging.precision(17);
   logging << SimpleMD::log()
           << " " << s 
-          << " " << ( npa.Eps( dof ) ) / ( kilo * u.J / mol )
-          << " " << ( npa.Eks() ) / ( kilo * u.J / mol )
-          << " " << ( npa.Epv( molecules->Volume() ) ) / ( kilo * u.J / mol )
-          << " " << ( npa.Ekv() ) / ( kilo * u.J / mol )
-          << " " << s * ( pv.GetEp() + ek + npa.Eps( dof ) + npa.Eks() + npa.Epv( molecules->Volume() ) + npa.Ekv() - npa.Hzero() ) / ( kilo * u.J / mol )
+          << " " << ( npa.Eps( dof ) ) / ( SI::kilo * u.J / mol )
+          << " " << ( npa.Eks() ) / ( SI::kilo * u.J / mol )
+          << " " << ( npa.Epv( molecules->Volume() ) ) / ( SI::kilo * u.J / mol )
+          << " " << ( npa.Ekv() ) / ( SI::kilo * u.J / mol )
+          << " " << s * ( pv.GetEp() + ek + npa.Eps( dof ) + npa.Eks() + npa.Epv( molecules->Volume() ) + npa.Ekv() - npa.Hzero() ) / ( SI::kilo * u.J / mol )
 	  << " " << npa.GetkT()  / u.K()
 	  << " " << npa.GetPext() / u.atm();
   return logging.str();

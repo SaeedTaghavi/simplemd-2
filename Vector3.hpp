@@ -3,11 +3,11 @@
 #include <cmath>
 #include <vector>
 #include <iostream>
-#include <boost/shared_ptr.hpp>
+//#include <boost/shared_ptr.hpp>
 #include "Unit.hpp"
 
 using namespace std;
-using namespace boost;
+//using namespace boost;
 
 /*
  *単純な3次元ベクトル。いずれはvalarrayで記述することになるだろう。
@@ -96,7 +96,7 @@ public:
 };
 
 
-//typedef shared_ptr<Box> BoxHandle;
+//typedef std::shared_ptr<Box> BoxHandle;
 
 
 
@@ -116,7 +116,7 @@ public:
 };
 
 
-typedef shared_ptr<Box> BoxHandle;
+typedef std::shared_ptr<Box> BoxHandle;
 
 
 

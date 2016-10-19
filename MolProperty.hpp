@@ -6,7 +6,7 @@
 #include "Vector3.hpp"
 
 using namespace std;
-using namespace boost;
+//using namespace boost;
 
 /*Common molecular properties*/
 class MolProperty
@@ -31,7 +31,7 @@ private:
 
 
 /*
- *Ã±¸¶»ÒÊ¬»Ò¤â¤³¤ì¤òÎ®ÍÑ¤¹¤ë¡£
+ *å˜åŸå­åˆ†å­ã‚‚ã“ã‚Œã‚’æµç”¨ã™ã‚‹ã€‚
  */
 class Flexible : public MolProperty
 {
@@ -101,9 +101,9 @@ private:
 
 
 
-typedef shared_ptr<MolProperty> MolPropertyHandle;
-typedef shared_ptr<Flexible> FlexibleHandle;
-typedef shared_ptr<Rigid> RigidHandle;
+typedef std::shared_ptr<MolProperty> MolPropertyHandle;
+typedef std::shared_ptr<Flexible> FlexibleHandle;
+typedef std::shared_ptr<Rigid> RigidHandle;
 typedef vector<MolPropertyHandle> MolPropertyArray;
 typedef vector<FlexibleHandle> FlexibleArray;
 

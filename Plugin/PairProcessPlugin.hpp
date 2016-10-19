@@ -1,13 +1,15 @@
 #ifndef PAIRPROCESSPLUGIN_GUARD
 #define PAIRPROCESSPLUGIN_GUARD
 
+
+#include <cassert>
 #include "MolProperty.hpp"
 
 /*
  * 分子対ごとの処理を行う汎用プラグイン。
  */
 
-class ListItem;
+struct ListItem;
 class SingleMolEntity;
 class Mols;
 class Intersite;

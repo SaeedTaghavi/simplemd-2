@@ -1,12 +1,12 @@
 #ifndef INTERACTION_HPP
 #define INTERACTION_HPP
 #include <vector>
-#include <boost/shared_ptr.hpp>
+//#include <boost/shared_ptr.hpp>
 #include "Unit.hpp"
 #include "Vector3.hpp"
 
 using namespace std;
-using namespace boost;
+//using namespace boost;
 
 /*
  *原子間2体相互作用を規定するクラス。まだもう少し種類を増やす必要があるだろう。
@@ -84,7 +84,7 @@ public:
 
 
 
-typedef shared_ptr<Interaction> InteractionHandle;
+typedef std::shared_ptr<Interaction> InteractionHandle;
 typedef vector<InteractionHandle> InteractionArray;
 typedef vector<IntrParams> IntrParamsArray;
 
@@ -92,8 +92,8 @@ typedef vector<IntrParams> IntrParamsArray;
 
 
 
-typedef shared_ptr<LJ> LJHandle;
-typedef shared_ptr<LJC> LJCHandle;
-typedef shared_ptr<Coulomb> CoulombHandle;
+typedef std::shared_ptr<LJ> LJHandle;
+typedef std::shared_ptr<LJC> LJCHandle;
+typedef std::shared_ptr<Coulomb> CoulombHandle;
 
 #endif

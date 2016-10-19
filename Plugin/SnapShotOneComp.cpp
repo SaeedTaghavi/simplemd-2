@@ -10,7 +10,7 @@ class SnapShotOneCompHelper : public CollectorPlugin{
 public:
   SnapShotOneCompHelper( SimpleMD& system_, string id08_, int fmt ) : id08( id08_ ), system(system_), format(fmt) {};
   void HookL1( Mols* mols );
-  void HookL0( SingleMolEntity* mol );
+  void HookL0( SingleMolEntity* mol ) {};
 };
 
 
@@ -29,14 +29,14 @@ SnapShotOneCompHelper::HookL1( Mols* mols )
       mols->Write( system.GetUnit(), *ferr );
     }
   }
-  //¤½¤ì°Ê³°¤Î¾ì¹ç¤Ï²¼°Ì¤Ë¹ß¤ê¤Ê¤¤¡£
+  //ãã‚Œä»¥å¤–ã®å ´åˆã¯ä¸‹ä½ã«é™ã‚Šãªã„ã€‚
 }
 
 
-void
-SnapShotOneCompHelper::HookL0( SingleMolEntity* mol )
-{
-}
+//void
+//SnapShotOneCompHelper::HookL0( SingleMolEntity* mol )
+//{
+//}
 
 
 
@@ -66,7 +66,7 @@ SnapShotOneComp::initialize( SimpleMD* sys )
 bool
 SnapShotOneComp::running()
 {
-  //¤³¤³¤Ç¡¢CollectorPlugin¤ò½é´ü²½¤·¡¢»È¤¤¤¹¤Æ¤ë¡£
+  //ã“ã“ã§ã€CollectorPluginã‚’åˆæœŸåŒ–ã—ã€ä½¿ã„ã™ã¦ã‚‹ã€‚
   SnapShotOneCompHelper helper( *system, id08, format );
   helper.HookL3( system->GetMolCollection() );
   return true;

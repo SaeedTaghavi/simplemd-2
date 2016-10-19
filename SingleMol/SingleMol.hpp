@@ -3,12 +3,12 @@
 
 #include <iostream>
 #include <vector>
-#include <boost/shared_ptr.hpp>
+//#include <boost/shared_ptr.hpp>
 #include "Vector3.hpp"
 #include <cstring>
 
 using namespace std;
-using namespace boost;
+//using namespace boost;
 
 /*abstract class; Layer 0*/
 class SingleMolEntity
@@ -44,7 +44,7 @@ private:
 
 
 
-typedef shared_ptr<SingleMolEntity> SingleMolHandle;
+typedef std::shared_ptr<SingleMolEntity> SingleMolHandle;
 typedef vector<SingleMolHandle>     SingleMolArray;
 
 

@@ -1,3 +1,4 @@
+#include <cassert>
 #include "System/System.hpp"
 #include "System/SimpleMD.hpp"
 #include "debug.hpp"
@@ -11,7 +12,7 @@ void
 SimpleMD::write(){
   WriteDTPS( dt, *unit, *fout );
   *fout << "@TABS" << endl 
-     << absoluteTime / ( pico * unit->sec ) << endl;
+     << absoluteTime / ( SI::pico * unit->sec ) << endl;
   rc.WriteRCOA( *unit, *fout );
   Write( moldict, *unit, *fout );
   molecules->Write( *unit, dt, *fout );
@@ -23,7 +24,7 @@ SimpleMD::write(){
 void 
 SimpleMD::SnapShot( ostream& out, int fmt ){
   out << "@TABS" << endl
-         << absoluteTime / ( pico * unit->sec ) << endl;
+         << absoluteTime / ( SI::pico * unit->sec ) << endl;
   if ( fmt == TRAJ_COORDONLY ){
     molecules->SnapShot( *unit, dt, out );
   }
@@ -62,12 +63,15 @@ SimpleMD::Force()
 {
   molecules->Preforce();
   molecules->Force( rc, pv );
-  molecules->Postforce();
+
   //2010-2-9 added for external field plugins
+  //2016-10 moved BEFORE PostForce().
   int nplugin = plugins.size();
   for( int i=0; i<nplugin; i++ ){
     plugins[i]->ForceHook();
   }
+
+  molecules->Postforce();
 }
 
 
@@ -85,13 +89,13 @@ SimpleMD::log()
   double idealpv = 2 * ektrans / 3;
   logging.precision(17);
   logging << step
-     << " " << absoluteTime / ( pico * u.sec )
-     << " " << Temperature( ek ) / u.K()
-     << " " << Pressure( idealpv ) / u.atm()
-     << " " << molecules->Volume() / pow( Angstro * u.m, 3 )
-     << " " << pv.GetEp() / ( kilo * u.J / mol )
-     << " " << ek / ( kilo * u.J / mol )
-     << " " << ( pv.GetEp()+ek ) / ( kilo * u.J / mol );
+	  << " " << absoluteTime / ( SI::pico * u.sec )
+	  << " " << Temperature( ek ) / u.K()
+	  << " " << Pressure( idealpv ) / u.atm()
+	  << " " << molecules->Volume() / pow( Angstro * u.m, 3 )
+	  << " " << pv.GetEp() / ( SI::kilo * u.J / mol )
+	  << " " << ek / ( SI::kilo * u.J / mol )
+	  << " " << ( pv.GetEp()+ek ) / ( SI::kilo * u.J / mol );
   return logging.str();
 }    
 

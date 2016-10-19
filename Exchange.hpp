@@ -1,14 +1,14 @@
 #ifndef EXCHANGE_HPP
 #define EXCHANGE_HPP
 #include <boost/utility.hpp>
-#include <boost/shared_ptr.hpp>
+//#include <boost/shared_ptr.hpp>
 #include "Random.hpp"
 
 
 using namespace boost;
 
 class ExchangeDriver;
-typedef shared_ptr<ExchangeDriver> ExchangeHandle;
+typedef std::shared_ptr<ExchangeDriver> ExchangeHandle;
 
 class ExchangeDriver
 {
@@ -33,7 +33,7 @@ public:
 };
 
 
-typedef shared_ptr<ExchangeDriver> ExchangeHandle;
+typedef std::shared_ptr<ExchangeDriver> ExchangeHandle;
 
 
 

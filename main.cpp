@@ -316,7 +316,7 @@ public:
     const Unit& u = *unit;
     int nsite = 1;
     //int nmol  = 0;
-    double eps = 1.0 * kilo * u.J / mol;
+    double eps = 1.0 * SI::kilo * u.J / mol;
     double sig = 1.0 * Angstro * u.m;
     int dof = 3;
     double m = 1.0 * u.g / mol;
@@ -356,7 +356,7 @@ public:
         fgets(buf,BUFSIZE, input);
         dt = atof( buf );
         // convert to internal unit
-        dt *= pico * unit->sec;
+        dt *= SI::pico * unit->sec;
       }
       else if ( tag == "@TSTO" ){
         fgets( buf, sizeof(buf), input );
@@ -417,7 +417,7 @@ public:
       else if ( tag == "@TABS" )  {
         // Absolute time past initial
         fgets( buf, sizeof( buf ), input );
-        absoluteTime = atof( buf ) * ( pico * unit->sec );
+        absoluteTime = atof( buf ) * ( SI::pico * unit->sec );
       }
       else if ( tag == "@DEFR" || tag == "@DEFP" ) {
         // define a molecule, put in the moldict
@@ -486,7 +486,7 @@ public:
 	double distance, fconst;
         sscanf( buf, "%lf %lf", &distance, &fconst );
 	distance *= Angstro * unit->m;
-	fconst   *= kilo * unit->J / mol / (Angstro * unit->m) / (Angstro * unit->m);
+	fconst   *= SI::kilo * unit->J / mol / (Angstro * unit->m) / (Angstro * unit->m);
 	//cerr << distance << "#" << fconst << endl;
         plugins.push_back( ProcessPluginHandle( new Zumbrella( distance, fconst, current_id08 ) ) );
       }

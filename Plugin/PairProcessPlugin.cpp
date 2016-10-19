@@ -1,3 +1,4 @@
+#include <cassert>
 #include "Plugin/PairProcessPlugin.hpp"
 #include "Interaction/ListVector.hpp"
 #include "SingleMol/SingleMol.hpp"

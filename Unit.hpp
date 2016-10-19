@@ -89,7 +89,7 @@ public:
       g     = NA;
       radian= 1;
       Pa    = J / (m*m*m);
-      coulomb = sqrt( COEFF * (kilo*J/mol) );
+      coulomb = sqrt( COEFF * (SI::kilo * J / mol) );
     }
   //custom units
   double K() const

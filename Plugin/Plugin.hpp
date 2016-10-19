@@ -6,16 +6,16 @@
  * Plug-ins are the derived class of Plugin == Main
  */
 #include <vector>
-#include <boost/shared_ptr.hpp>
+//#include <boost/shared_ptr.hpp>
 #include <boost/utility.hpp>
 //#include "System.hpp"
 
 using namespace std;
-using namespace boost;
+//using namespace boost;
 
 class SimpleMD;
 
-class ProcessPlugin : noncopyable
+class ProcessPlugin : boost::noncopyable
 {
 public:
   virtual ~ProcessPlugin(){}

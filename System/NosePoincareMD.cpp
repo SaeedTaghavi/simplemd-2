@@ -1,4 +1,5 @@
 #include <sstream>
+#include <cassert>
 #include "System/NosePoincareMD.hpp"
 #include "debug.hpp"
 #include "Plugin/CollectorPlugin.hpp"
@@ -110,9 +111,9 @@ NosePoincareMD::log()
   logging.precision(17);
   logging << SimpleMD::log()
           << " " << s 
-          << " " << ( nosepoincare->Ep( dof ) ) / ( kilo * u.J / mol )
-          << " " << ( nosepoincare->Ek() ) / ( kilo * u.J / mol )
-          << " " << s * ( pv.GetEp() + ek + nosepoincare->Ep( dof ) + nosepoincare->Ek() - nosepoincare->Hzero() ) / ( kilo * u.J / mol )
+          << " " << ( nosepoincare->Ep( dof ) ) / ( SI::kilo * u.J / mol )
+          << " " << ( nosepoincare->Ek() ) / ( SI::kilo * u.J / mol )
+          << " " << s * ( pv.GetEp() + ek + nosepoincare->Ep( dof ) + nosepoincare->Ek() - nosepoincare->Hzero() ) / ( SI::kilo * u.J / mol )
 	  << " " << nosepoincare->GetkT() / u.K();
   return logging.str();
 }    

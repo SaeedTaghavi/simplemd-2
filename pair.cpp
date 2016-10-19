@@ -18,8 +18,8 @@
 #include "PairTool.hpp"
 
 using namespace std;
-using namespace boost;
-using namespace SI;
+//using namespace boost;
+//using namespace SI;
 
 
 //private implimentation

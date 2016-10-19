@@ -6,7 +6,7 @@
 class Rigid;
 class Truncation;
 class Intersite;
-class ListItem;
+struct ListItem;
 
 
 /*

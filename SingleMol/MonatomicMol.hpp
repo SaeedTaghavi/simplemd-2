@@ -7,7 +7,7 @@
 //#include "Interaction/Combination.hpp"
 
 class CollectorPlugin;
-class SiteOfAction;
+struct SiteOfAction;
 class Vector3;
 class PotVir;
 class Unit;
@@ -88,7 +88,7 @@ private:
 };
 
 
-typedef shared_ptr<MonatomicMol>   MonatomicMolHandle;
+typedef std::shared_ptr<MonatomicMol>   MonatomicMolHandle;
 
 
 /*

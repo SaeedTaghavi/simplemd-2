@@ -16,7 +16,7 @@ class CollectorPlugin;
 
 
 using namespace std;
-using namespace boost;
+//using namespace boost;
 
 class MonatomicMols : public Mols
 {

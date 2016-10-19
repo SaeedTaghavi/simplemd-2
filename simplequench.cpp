@@ -196,7 +196,7 @@ public:
     const Unit& u = *unit;
     int nsite = 1;
     //int nmol  = 0;
-    double eps = 1.0 * kilo * u.J / mol;
+    double eps = 1.0 * SI::kilo * u.J / mol;
     double sig = 1.0 * Angstro * u.m;
     int dof = 3;
     double m = 1.0 * u.g / mol;
@@ -234,7 +234,7 @@ public:
         fgets(buf,BUFSIZE, input);
         dt = atof( buf );
         // convert to internal unit
-        dt *= pico * unit->sec;
+        dt *= SI::pico * unit->sec;
       }
       else if ( tag == "@BOX3" ) {
         const int isP[3] = {1,1,1};
@@ -258,7 +258,7 @@ public:
       else if ( tag == "@TABS" )  {
         // Absolute time past initial
         fgets( buf, sizeof( buf ), input );
-        absoluteTime = atof( buf ) * ( pico * unit->sec );
+        absoluteTime = atof( buf ) * ( SI::pico * unit->sec );
       }
       else if ( tag == "@DEFR" || tag == "@DEFP" ) {
         // define a molecule, put in the moldict

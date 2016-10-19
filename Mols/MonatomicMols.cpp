@@ -1,3 +1,4 @@
+#include <cassert>
 #include "Mols/MonatomicMols.hpp"
 #include "debug.hpp"
 #include "Mols/RigidBodies.hpp"

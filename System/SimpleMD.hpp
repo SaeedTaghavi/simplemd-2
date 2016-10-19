@@ -120,7 +120,7 @@ public:
 
 
 
-typedef shared_ptr<SimpleMD> SimpleMDHandle;
+typedef std::shared_ptr<SimpleMD> SimpleMDHandle;
 
 
 
