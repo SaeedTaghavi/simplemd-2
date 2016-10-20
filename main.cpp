@@ -44,6 +44,7 @@ extern "C" {
 #include "Plugin/Zumbrella.hpp"
 #include "Plugin/FixPlugin.hpp"
 #include "Plugin/FixComponentPlugin.hpp"
+#include "Plugin/MagneticFieldPlugin.hpp"
 #include "FileIO.hpp"
 #include "System/System.hpp"
 #include "System/SimpleMD.hpp"
@@ -501,6 +502,17 @@ public:
 				}
       }
 */
+      else if ( tag == "@MAGZ" )  {
+				//@FIXc is insufficiently implemented @FIXC (not taking constraints into account for temperature calculations.)
+				//現在の成分のみを固定。
+				fgets( buf, sizeof( buf ), input );
+				Vector3 magfluxdens;
+				magfluxdens.x = 0.0;
+				magfluxdens.y = 0.0;
+				magfluxdens.z = atof(buf);
+				cerr << "B " << magfluxdens.print() << endl;
+	  			plugins.push_back( ProcessPluginHandle( new MagneticFieldPlugin( magfluxdens ) ) );
+      }
       else if ( tag == "@FIXc" )  {
 				//@FIXc is insufficiently implemented @FIXC (not taking constraints into account for temperature calculations.)
 				//現在の成分のみを固定。

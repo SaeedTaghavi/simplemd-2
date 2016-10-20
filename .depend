@@ -1,103 +1,108 @@
 # DO NOT DELETE
 
-Plugin/Zumbrella.hpp: Vector3.hpp Plugin/Plugin.hpp Plugin/CollectorPlugin.hpp 
-Plugin/TReset.o: System/SimpleMD.hpp Plugin/TReset.hpp Plugin/CollectorPlugin.hpp 
-System/QuenchSystem.o: Plugin/CollectorPlugin.hpp QuenchSystem.hpp 
-Plugin/SnapShotOneComp.o: System/SimpleMD.hpp Plugin/CollectorPlugin.hpp Plugin/SnapShotOneComp.hpp 
-Plugin/PairProcessPlugin.o: Cell/Cell.hpp MolCollection.hpp Mols/RigidBodies.hpp Interaction/ListVector.hpp SingleMol/SingleMol.hpp Mols/Mols.hpp Plugin/PairProcessPlugin.hpp SingleMol/RigidBody.hpp 
-Plugin/Interval.o: Plugin/Interval.hpp System/SimpleMD.hpp 
-Integrator/NosePoincareAndersen.o: NosePoincareAndersen.hpp 
-Integrator/NosePoincareAndersen.hpp: Unit.hpp 
-Plugin/Replica.hpp: FakeMPI.h Plugin/Plugin.hpp Random.hpp Exchange.hpp Integrator/NosePoincare.hpp 
-Interaction/Interaction.o: Interaction/Interaction.hpp Vector3.hpp debug.hpp 
-Integrator/NosePoincare.hpp: Unit.hpp 
-Cell/Cell.hpp: Vector3.hpp Interaction/Combination.hpp Mols/Mols.hpp Interaction/Truncation.hpp Interaction/PotVir.hpp 
-Interaction/Truncation.o: debug.hpp Interaction/Truncation.hpp 
-Vector3.o: debug.hpp Vector3.hpp 
-Plugin/Terminate.hpp: Plugin/Plugin.hpp 
-System/System.o: System/System.hpp debug.hpp System/SimpleMD.hpp Plugin/PairProcessPlugin.hpp FileIO.hpp 
-Plugin/LoadBalancer.o: Plugin/LoadBalancer.hpp 
-FileIO.hpp: SingleMol/RigidBody2.hpp Mols/RigidBodies.hpp Mols/RigidBodies2.hpp MolProperty.hpp Unit.hpp 
-Plugin/LoadBalancer2.hpp: FakeMPI.h System/SimpleMD.hpp Plugin/LoadBalancer.hpp 
-Interaction/Combination.o: Interaction/Combination.hpp 
-System/SimpleMD.hpp: MolCollection.hpp System/System.hpp Vector3.hpp Unit.hpp Plugin/Plugin.hpp Interaction/PotVir.hpp Interaction/Truncation.hpp 
-System/NosePoincareMD.o: debug.hpp System/NosePoincareMD.hpp Plugin/CollectorPlugin.hpp Integrator/NosePoincare.hpp 
-SingleMol/PolyatomicMol.o: debug.hpp SingleMol/PolyatomicMol.hpp 
-Interaction/Combination.hpp: Interaction/Interaction.hpp Vector3.hpp MolProperty.hpp Unit.hpp 
-wtg6tonx4a.o: Mols/RigidBodies2.hpp 
-Plugin/CPReplica.o: System/SimpleMD.hpp Plugin/CPReplica.hpp Plugin/CollectorPlugin.hpp 
-Mols/MonatomicMols.o: Mols/RigidBodies2.hpp Mols/RigidBodies.hpp debug.hpp Plugin/CollectorPlugin.hpp Mols/MonatomicMols.hpp 
-ExchangePT.hpp: Exchange.hpp Random.hpp 
-Plugin/SnapShotOneComp.hpp: Plugin/Plugin.hpp 
-FileIO.o: FileIO.hpp 
-MolCollection.o: Cell/Cell.hpp MolCollection.hpp debug.hpp Plugin/CollectorPlugin.hpp Plugin/PairProcessPlugin.hpp 
-main.o: Plugin/Zumbrella.hpp Mols/RigidBodies.hpp Cell/GridCell.hpp Plugin/TReset.hpp Integrator/NosePoincareAndersen.hpp Plugin/Replica.hpp Integrator/NosePoincare.hpp SingleMol/RigidBody.hpp Cell/Cell.hpp Plugin/Terminate.hpp Plugin/FixComponentPlugin.hpp FileIO.hpp Plugin/LoadBalancer2.hpp SingleMol/RigidBody2.hpp debug.hpp FakeMPI.h System/SimpleMD.hpp Plugin/CPReplica.hpp Plugin/CollectorPlugin.hpp System/System.hpp SingleMol/SingleMol.hpp Mols/MonatomicMols.hpp Plugin/SnapShot.hpp Plugin/SnapShotOneComp.hpp Plugin/LoadBalancer.hpp Mols/PolyatomicMols.hpp System/NosePoincareAndersenMD.hpp Plugin/StopDrift.hpp Plugin/Log.hpp Plugin/Plugin.hpp Plugin/FixPlugin.hpp SingleMol/MonatomicMol.hpp SingleMol/PolyatomicMol.hpp Mols/RigidBodies2.hpp Plugin/Interval.hpp System/NosePoincareMD.hpp Cell/PeriodicCell.hpp 
-Mols/Mols.o: Mols/Mols.hpp Plugin/PairProcessPlugin.hpp 
-Mols/PolyatomicMols.o: debug.hpp Mols/PolyatomicMols.hpp 
-MolProperty.hpp: Interaction/Interaction.hpp Vector3.hpp 
-Plugin/StopDrift.hpp: Plugin/Plugin.hpp 
-System/QuenchSystem.hpp: System/SimpleMD.hpp 
-SingleMol/PolyatomicMol.hpp: SingleMol/MonatomicMol.hpp 
-SingleMol/MonatomicMol.hpp: SingleMol/SingleMol.hpp 
-Interaction/PotVir.hpp: Vector3.hpp 
-wtg6tomdvw.o: Mols/RigidBodies2.hpp FileIO.hpp 
-Unit.o: Unit.hpp 
-System/NosePoincareMD.hpp: System/SimpleMD.hpp 
-Mols/Mols.hpp: Interaction/ListVector.hpp Vector3.hpp MolProperty.hpp SingleMol/SingleMol.hpp Interaction/Combination.hpp Interaction/PotVir.hpp Interaction/Truncation.hpp 
-SingleMol/RigidBody.o: Interaction/ListVector.hpp debug.hpp Interaction/Combination.hpp Interaction/PotVir.hpp Interaction/Truncation.hpp SingleMol/RigidBody.hpp 
-Plugin/Terminate.o: Plugin/Terminate.hpp System/SimpleMD.hpp 
-SingleMol/MonatomicMol.o: debug.hpp Vector3.hpp Plugin/CollectorPlugin.hpp SingleMol/MonatomicMol.hpp 
-MolCollection.hpp: Interaction/Interaction.hpp Cell/Cell.hpp Vector3.hpp Interaction/Combination.hpp 
-MolProperty.o: debug.hpp MolProperty.hpp 
-Exchange.o: Exchange.hpp 
-SingleMol/RigidBody2.o: SingleMol/RigidBody2.hpp debug.hpp 
-Mols/RigidBodies2.o: Interaction/Interaction.hpp Interaction/ListVector.hpp debug.hpp Mols/RigidBodies2.hpp Plugin/CollectorPlugin.hpp Mols/MonatomicMols.hpp SingleMol/RigidBody.hpp 
-Plugin/Log.o: System/SimpleMD.hpp Plugin/Log.hpp 
-Recipe.o: frprmn2.c mnbrak.c f1dim.c linmin2.c brent.c nrutil.c 
-Cell/PeriodicCell.o: Cell/PeriodicCell.hpp 
-Plugin/PairProcessPlugin.hpp: MolProperty.hpp 
-Interaction/Interaction.hpp: Vector3.hpp Unit.hpp 
-Mols/RigidBodies.hpp: MolProperty.hpp Mols/MonatomicMols.hpp Interaction/PotVir.hpp Interaction/Truncation.hpp Vector3.hpp Interaction/ListVector.hpp Mols/Mols.hpp SingleMol/RigidBody.hpp 
-Vector3.hpp: Unit.hpp 
-Cell/Cell.o: Mols/RigidBodies2.hpp Mols/RigidBodies.hpp debug.hpp Plugin/CollectorPlugin.hpp Mols/MonatomicMols.hpp Plugin/PairProcessPlugin.hpp Cell.hpp 
-Plugin/LoadBalancer2.o: Plugin/LoadBalancer2.hpp 
-Cell/GridCell.hpp: Cell/Cell.hpp 
-Plugin/TReset.hpp: Plugin/Plugin.hpp 
-SingleMol/RigidBody.hpp: MolProperty.hpp SingleMol/PolyatomicMol.hpp 
-ExchangePT.o: ExchangePT.hpp 
-Plugin/FixComponentPlugin.hpp: Plugin/Plugin.hpp 
-Plugin/Replica.o: System/SimpleMD.hpp Plugin/CollectorPlugin.hpp Plugin/Replica.hpp 
-Integrator/NosePoincare.o: NosePoincare.hpp 
-Plugin/StopDrift.o: System/SimpleMD.hpp Plugin/StopDrift.hpp 
-SingleMol/RigidBody2.hpp: SingleMol/RigidBody.hpp 
-Interaction/ListVector.hpp: Vector3.hpp 
-System/QuenchSystem2.o: Plugin/CollectorPlugin.hpp QuenchSystem.hpp 
-Plugin/CPReplica.hpp: FakeMPI.h Integrator/NosePoincareAndersen.hpp Plugin/Plugin.hpp Random.hpp ExchangePT.hpp 
-Plugin/CollectorPlugin.o: MolCollection.hpp Cell/Cell.hpp Vector3.hpp Mols/RigidBodies.hpp Mols/MonatomicMols.hpp Mols/Mols.hpp Plugin/CollectorPlugin.hpp 
-Plugin/CollectorPlugin.hpp: Vector3.hpp 
-simplequench.o: System/System.hpp SingleMol/SingleMol.hpp Mols/MonatomicMols.hpp Mols/RigidBodies.hpp Cell/GridCell.hpp Integrator/NosePoincareAndersen.hpp Integrator/NosePoincare.hpp Mols/PolyatomicMols.hpp SingleMol/RigidBody.hpp Cell/Cell.hpp System/QuenchSystem.hpp FileIO.hpp SingleMol/MonatomicMol.hpp SingleMol/PolyatomicMol.hpp SingleMol/RigidBody2.hpp debug.hpp Cell/PeriodicCell.hpp 
-PairTool.o: MolCollection.hpp System/System.hpp Cell/Cell.hpp SingleMol/SingleMol.hpp Mols/MonatomicMols.hpp FileIO.hpp SingleMol/PolyatomicMol.hpp SingleMol/MonatomicMol.hpp SingleMol/RigidBody2.hpp debug.hpp Mols/RigidBodies.hpp Cell/GridCell.hpp PairTool.hpp Mols/PolyatomicMols.hpp SingleMol/RigidBody.hpp 
-SingleMol/SingleMol.hpp: Vector3.hpp 
-Mols/MonatomicMols.hpp: MolProperty.hpp Interaction/PotVir.hpp Interaction/Truncation.hpp SingleMol/MonatomicMol.hpp Vector3.hpp Interaction/ListVector.hpp Mols/Mols.hpp Interaction/Combination.hpp 
-Interaction/ListVector.o: Interaction/ListVector.hpp Mols/Mols.hpp Interaction/Truncation.hpp 
-Plugin/SnapShot.hpp: Plugin/Plugin.hpp 
-Plugin/SnapShot.o: System/SimpleMD.hpp Plugin/SnapShot.hpp 
-ngph.o: MolCollection.hpp System/System.hpp Cell/Cell.hpp SingleMol/SingleMol.hpp Mols/MonatomicMols.hpp Plugin/PairProcessPlugin.hpp FileIO.hpp SingleMol/PolyatomicMol.hpp SingleMol/MonatomicMol.hpp SingleMol/RigidBody2.hpp debug.hpp Mols/RigidBodies.hpp Cell/GridCell.hpp PairTool.hpp Mols/PolyatomicMols.hpp SingleMol/RigidBody.hpp 
-Plugin/Zumbrella.o: MolCollection.hpp Cell/Cell.hpp Plugin/Zumbrella.hpp MolProperty.hpp Mols/MonatomicMols.hpp Vector3.hpp Mols/RigidBodies.hpp System/SimpleMD.hpp Mols/Mols.hpp 
-Plugin/LoadBalancer.hpp: FakeMPI.h System/SimpleMD.hpp 
-Mols/PolyatomicMols.hpp: Mols/Mols.hpp SingleMol/PolyatomicMol.hpp 
-System/NosePoincareAndersenMD.hpp: System/SimpleMD.hpp 
-Plugin/Log.hpp: Plugin/Plugin.hpp 
-Plugin/FixPlugin.hpp: Plugin/Plugin.hpp 
-Exchange.hpp: Random.hpp 
-Plugin/FixPlugin.o: MolCollection.hpp Cell/Cell.hpp MolProperty.hpp Mols/MonatomicMols.hpp Plugin/FixPlugin.hpp Vector3.hpp Mols/RigidBodies.hpp Mols/RigidBodies2.hpp System/SimpleMD.hpp Plugin/CollectorPlugin.hpp Mols/Mols.hpp 
-Interaction/Truncation.hpp: Unit.hpp 
-Mols/RigidBodies.o: debug.hpp Mols/RigidBodies.hpp Plugin/CollectorPlugin.hpp 
-Plugin/Interval.hpp: Plugin/Plugin.hpp 
-Mols/RigidBodies2.hpp: SingleMol/RigidBody2.hpp Mols/MonatomicMols.hpp Mols/Mols.hpp 
-System/NosePoincareAndersenMD.o: System/NosePoincareAndersenMD.hpp debug.hpp Integrator/NosePoincareAndersen.hpp Plugin/CollectorPlugin.hpp 
-pair.o: MolCollection.hpp System/System.hpp Cell/Cell.hpp SingleMol/SingleMol.hpp Mols/MonatomicMols.hpp Plugin/PairProcessPlugin.hpp FileIO.hpp SingleMol/PolyatomicMol.hpp SingleMol/MonatomicMol.hpp SingleMol/RigidBody2.hpp debug.hpp Mols/RigidBodies.hpp Cell/GridCell.hpp PairTool.hpp Mols/PolyatomicMols.hpp SingleMol/RigidBody.hpp 
-Cell/PeriodicCell.hpp: Cell/Cell.hpp 
+Mols/RigidBodies.o: Mols/RigidBodies.hpp debug.hpp Plugin/CollectorPlugin.hpp 
+System/System.o: Const.hpp FileIO.hpp System/SimpleMD.hpp System/System.hpp debug.hpp Plugin/PairProcessPlugin.hpp 
+Vector3.o: Vector3.hpp debug.hpp 
+Interaction/Interaction.o: Vector3.hpp Interaction/Interaction.hpp debug.hpp 
+MolCollection.o: MolCollection.hpp Cell/Cell.hpp debug.hpp Plugin/PairProcessPlugin.hpp Plugin/CollectorPlugin.hpp 
+SingleMol/MonatomicMol.o: SingleMol/MonatomicMol.hpp debug.hpp Plugin/CollectorPlugin.hpp Vector3.hpp 
+System/NosePoincareMD.o: System/NosePoincareMD.hpp debug.hpp Integrator/NosePoincare.hpp Plugin/CollectorPlugin.hpp 
+Plugin/MagneticFieldPlugin.hpp: Plugin/Plugin.hpp 
+Mols/MonatomicMols.o: Mols/MonatomicMols.hpp Mols/RigidBodies.hpp Mols/RigidBodies2.hpp Plugin/CollectorPlugin.hpp debug.hpp 
+Recipe.o: nrutil.c linmin2.c f1dim.c brent.c mnbrak.c frprmn2.c 
 Cell/GridCell.o: debug.hpp Cell/GridCell.hpp 
-Plugin/FixComponentPlugin.o: MolCollection.hpp Cell/Cell.hpp MolProperty.hpp Mols/MonatomicMols.hpp Plugin/FixComponentPlugin.hpp Vector3.hpp Mols/RigidBodies2.hpp Cell/GridCell.hpp Mols/RigidBodies.hpp System/SimpleMD.hpp Plugin/CollectorPlugin.hpp Mols/Mols.hpp 
+ExchangePT.o: ExchangePT.hpp 
+Plugin/Replica.hpp: Exchange.hpp Plugin/Plugin.hpp Random.hpp FakeMPI.h Integrator/NosePoincare.hpp 
+MolProperty.hpp: Vector3.hpp Interaction/Interaction.hpp 
+simplequench.o: debug.hpp SingleMol/MonatomicMol.hpp Cell/Cell.hpp Cell/PeriodicCell.hpp System/QuenchSystem.hpp SingleMol/PolyatomicMol.hpp SingleMol/SingleMol.hpp Mols/PolyatomicMols.hpp Integrator/NosePoincare.hpp Integrator/NosePoincareAndersen.hpp Mols/MonatomicMols.hpp FileIO.hpp SingleMol/RigidBody.hpp Cell/GridCell.hpp Mols/RigidBodies.hpp SingleMol/RigidBody2.hpp System/System.hpp 
+Integrator/NosePoincare.hpp: Unit.hpp 
+Plugin/LoadBalancer2.o: Plugin/LoadBalancer2.hpp 
+Integrator/NosePoincareAndersen.hpp: Unit.hpp 
+Cell/PeriodicCell.o: Cell/PeriodicCell.hpp 
+Plugin/Interval.hpp: Plugin/Plugin.hpp 
+main.o: Plugin/Terminate.hpp Cell/PeriodicCell.hpp Cell/Cell.hpp Mols/RigidBodies2.hpp Plugin/SnapShotOneComp.hpp Mols/PolyatomicMols.hpp Plugin/FixComponentPlugin.hpp System/NosePoincareAndersenMD.hpp Cell/GridCell.hpp System/SimpleMD.hpp Plugin/Log.hpp Plugin/LoadBalancer.hpp Plugin/CPReplica.hpp Plugin/StopDrift.hpp SingleMol/RigidBody2.hpp Const.hpp Plugin/Zumbrella.hpp Plugin/TReset.hpp Plugin/CollectorPlugin.hpp Plugin/SnapShot.hpp Plugin/MagneticFieldPlugin.hpp SingleMol/MonatomicMol.hpp debug.hpp SingleMol/SingleMol.hpp SingleMol/PolyatomicMol.hpp Plugin/FixPlugin.hpp SingleMol/RigidBody.hpp Plugin/Interval.hpp FileIO.hpp Mols/MonatomicMols.hpp Integrator/NosePoincareAndersen.hpp Integrator/NosePoincare.hpp FakeMPI.h System/System.hpp System/NosePoincareMD.hpp Plugin/Plugin.hpp Mols/RigidBodies.hpp Plugin/LoadBalancer2.hpp Plugin/Replica.hpp 
+Mols/MonatomicMols.hpp: Mols/Mols.hpp Interaction/ListVector.hpp Interaction/PotVir.hpp SingleMol/MonatomicMol.hpp Interaction/Truncation.hpp Vector3.hpp Interaction/Combination.hpp MolProperty.hpp 
+Plugin/FixComponentStopDrift.o: Mols/MonatomicMols.hpp MolCollection.hpp Cell/Cell.hpp System/SimpleMD.hpp Mols/Mols.hpp Cell/GridCell.hpp Mols/RigidBodies2.hpp Plugin/FixComponentStopDrift.hpp Vector3.hpp Plugin/CollectorPlugin.hpp Mols/RigidBodies.hpp MolProperty.hpp 
+Interaction/Combination.hpp: Vector3.hpp Interaction/Interaction.hpp MolProperty.hpp Unit.hpp 
+SingleMol/RigidBody.o: debug.hpp Interaction/Truncation.hpp Interaction/ListVector.hpp Interaction/Combination.hpp Interaction/PotVir.hpp SingleMol/RigidBody.hpp 
+Interaction/ListVector.hpp: Vector3.hpp 
+Plugin/SnapShotOneComp.hpp: Plugin/Plugin.hpp 
+Mols/Mols.o: Mols/Mols.hpp Plugin/PairProcessPlugin.hpp 
+Mols/RigidBodies2.o: debug.hpp Interaction/Interaction.hpp Interaction/ListVector.hpp Plugin/CollectorPlugin.hpp Mols/RigidBodies2.hpp Mols/MonatomicMols.hpp SingleMol/RigidBody.hpp 
+Mols/RigidBodies2.hpp: Mols/MonatomicMols.hpp SingleMol/RigidBody2.hpp Mols/Mols.hpp 
+Interaction/PotVir.hpp: Vector3.hpp 
+Cell/Cell.hpp: Mols/Mols.hpp Interaction/PotVir.hpp Interaction/Truncation.hpp Vector3.hpp Interaction/Combination.hpp 
+MolCollection.hpp: Interaction/Combination.hpp Vector3.hpp Interaction/Interaction.hpp Cell/Cell.hpp 
+Plugin/FixPlugin.o: MolProperty.hpp Mols/RigidBodies.hpp Plugin/FixPlugin.hpp Plugin/CollectorPlugin.hpp Vector3.hpp Mols/Mols.hpp Mols/MonatomicMols.hpp MolCollection.hpp Cell/Cell.hpp System/SimpleMD.hpp Mols/RigidBodies2.hpp 
+Integrator/NosePoincareAndersen.o: NosePoincareAndersen.hpp 
+Cell/PeriodicCell.hpp: Cell/Cell.hpp 
 Interaction/PotVir.o: Interaction/PotVir.hpp 
+Interaction/Truncation.hpp: Unit.hpp 
+Plugin/FixComponentStopDrift.hpp: Plugin/Plugin.hpp 
+Plugin/PairProcessPlugin.hpp: MolProperty.hpp 
+System/NosePoincareAndersenMD.o: System/NosePoincareAndersenMD.hpp debug.hpp Plugin/CollectorPlugin.hpp Integrator/NosePoincareAndersen.hpp 
+Plugin/SnapShotOneComp.o: Const.hpp System/SimpleMD.hpp Plugin/SnapShotOneComp.hpp Plugin/CollectorPlugin.hpp 
+Exchange.o: Exchange.hpp 
+Plugin/Zumbrella.hpp: Plugin/Plugin.hpp Vector3.hpp Plugin/CollectorPlugin.hpp 
+Plugin/PairProcessPlugin.o: SingleMol/SingleMol.hpp Plugin/PairProcessPlugin.hpp Mols/RigidBodies.hpp MolCollection.hpp Cell/Cell.hpp SingleMol/RigidBody.hpp Mols/Mols.hpp Interaction/ListVector.hpp 
+Plugin/StopDrift.o: Plugin/StopDrift.hpp System/SimpleMD.hpp 
+Integrator/NosePoincare.o: NosePoincare.hpp 
+Plugin/SnapShot.o: Plugin/SnapShot.hpp System/SimpleMD.hpp 
+Plugin/LoadBalancer.hpp: FakeMPI.h System/SimpleMD.hpp 
+SingleMol/RigidBody2.hpp: SingleMol/RigidBody.hpp 
+Plugin/CPReplica.hpp: Plugin/Plugin.hpp Random.hpp FakeMPI.h ExchangePT.hpp Integrator/NosePoincareAndersen.hpp 
+Plugin/StopDrift.hpp: Plugin/Plugin.hpp 
+Plugin/LoadBalancer.o: Plugin/LoadBalancer.hpp 
+System/QuenchSystem2.o: Plugin/CollectorPlugin.hpp QuenchSystem.hpp 
+System/SimpleMD.hpp: Interaction/Truncation.hpp Vector3.hpp Interaction/PotVir.hpp Unit.hpp MolCollection.hpp Plugin/Plugin.hpp System/System.hpp 
+Plugin/Log.o: System/SimpleMD.hpp Plugin/Log.hpp 
+wtg6tonx4a.o: Mols/RigidBodies2.hpp 
+Plugin/CPReplica.o: Plugin/CollectorPlugin.hpp System/SimpleMD.hpp Plugin/CPReplica.hpp 
+Plugin/FixPlugin.hpp: Plugin/Plugin.hpp 
+PairTool.o: SingleMol/PolyatomicMol.hpp SingleMol/SingleMol.hpp SingleMol/RigidBody2.hpp Mols/PolyatomicMols.hpp System/System.hpp Mols/RigidBodies.hpp PairTool.hpp MolCollection.hpp Mols/MonatomicMols.hpp FileIO.hpp Cell/Cell.hpp SingleMol/RigidBody.hpp Cell/GridCell.hpp debug.hpp SingleMol/MonatomicMol.hpp 
+System/QuenchSystem.hpp: System/SimpleMD.hpp 
+SingleMol/SingleMol.hpp: Vector3.hpp 
+Plugin/Replica.o: System/SimpleMD.hpp Plugin/CollectorPlugin.hpp Plugin/Replica.hpp 
+SingleMol/PolyatomicMol.hpp: SingleMol/MonatomicMol.hpp 
+ngph.o: Plugin/PairProcessPlugin.hpp Mols/RigidBodies.hpp PairTool.hpp System/System.hpp SingleMol/RigidBody2.hpp FileIO.hpp Mols/MonatomicMols.hpp Cell/GridCell.hpp SingleMol/RigidBody.hpp SingleMol/SingleMol.hpp SingleMol/PolyatomicMol.hpp Mols/PolyatomicMols.hpp debug.hpp SingleMol/MonatomicMol.hpp Cell/Cell.hpp MolCollection.hpp 
+SingleMol/MonatomicMol.hpp: SingleMol/SingleMol.hpp 
+test1.o: SingleMol/RigidBody.hpp Cell/GridCell.hpp Mols/MonatomicMols.hpp FileIO.hpp SingleMol/RigidBody2.hpp System/System.hpp Mols/RigidBodies.hpp PairTool.hpp Plugin/PairProcessPlugin.hpp MolCollection.hpp Cell/Cell.hpp SingleMol/MonatomicMol.hpp debug.hpp Mols/PolyatomicMols.hpp SingleMol/PolyatomicMol.hpp SingleMol/SingleMol.hpp 
+MolProperty.o: MolProperty.hpp debug.hpp 
+Plugin/SnapShot.hpp: Plugin/Plugin.hpp 
+Vector3.hpp: Unit.hpp 
+pair.o: Plugin/PairProcessPlugin.hpp Mols/RigidBodies.hpp PairTool.hpp SingleMol/RigidBody2.hpp System/System.hpp Mols/MonatomicMols.hpp FileIO.hpp SingleMol/RigidBody.hpp Cell/GridCell.hpp SingleMol/PolyatomicMol.hpp SingleMol/SingleMol.hpp Mols/PolyatomicMols.hpp debug.hpp SingleMol/MonatomicMol.hpp MolCollection.hpp Cell/Cell.hpp 
+Plugin/LoadBalancer2.hpp: FakeMPI.h Plugin/LoadBalancer.hpp System/SimpleMD.hpp 
+Mols/RigidBodies.hpp: Mols/MonatomicMols.hpp Mols/Mols.hpp SingleMol/RigidBody.hpp Interaction/ListVector.hpp Interaction/PotVir.hpp Interaction/Truncation.hpp Vector3.hpp MolProperty.hpp 
+SingleMol/PolyatomicMol.o: SingleMol/PolyatomicMol.hpp debug.hpp 
+Mols/PolyatomicMols.o: Mols/PolyatomicMols.hpp debug.hpp 
+Exchange.hpp: Random.hpp 
+SingleMol/RigidBody2.o: SingleMol/RigidBody2.hpp debug.hpp 
+Plugin/CollectorPlugin.o: Mols/RigidBodies.hpp Vector3.hpp Plugin/CollectorPlugin.hpp Mols/Mols.hpp Mols/MonatomicMols.hpp MolCollection.hpp Cell/Cell.hpp 
+System/NosePoincareMD.hpp: System/SimpleMD.hpp 
+FileIO.hpp: SingleMol/RigidBody2.hpp Mols/RigidBodies2.hpp Mols/RigidBodies.hpp Unit.hpp MolProperty.hpp 
+FileIO.o: FileIO.hpp 
+SingleMol/RigidBody.hpp: MolProperty.hpp SingleMol/PolyatomicMol.hpp 
+System/NosePoincareAndersenMD.hpp: System/SimpleMD.hpp 
+Plugin/FixComponentPlugin.o: Mols/Mols.hpp Cell/GridCell.hpp MolCollection.hpp Mols/MonatomicMols.hpp Cell/Cell.hpp System/SimpleMD.hpp Mols/RigidBodies2.hpp Plugin/FixComponentPlugin.hpp Mols/RigidBodies.hpp MolProperty.hpp Vector3.hpp Plugin/CollectorPlugin.hpp 
+Plugin/FixComponentPlugin.hpp: Plugin/Plugin.hpp 
+Interaction/ListVector.o: Mols/Mols.hpp Interaction/Truncation.hpp Interaction/ListVector.hpp 
+Cell/Cell.o: Cell.hpp Mols/RigidBodies.hpp Mols/RigidBodies2.hpp Plugin/CollectorPlugin.hpp debug.hpp Plugin/PairProcessPlugin.hpp Mols/MonatomicMols.hpp 
+Mols/PolyatomicMols.hpp: Mols/Mols.hpp SingleMol/PolyatomicMol.hpp 
+Plugin/Terminate.o: Plugin/Terminate.hpp System/SimpleMD.hpp 
+ExchangePT.hpp: Exchange.hpp Random.hpp 
+Plugin/Terminate.hpp: Plugin/Plugin.hpp 
+Mols/Mols.hpp: Interaction/PotVir.hpp MolProperty.hpp Interaction/ListVector.hpp Vector3.hpp Interaction/Combination.hpp Interaction/Truncation.hpp SingleMol/SingleMol.hpp 
+Plugin/CollectorPlugin.hpp: Vector3.hpp 
+Interaction/Interaction.hpp: Vector3.hpp Unit.hpp 
+wtg6tomdvw.o: FileIO.hpp Mols/RigidBodies2.hpp 
+Plugin/TReset.hpp: Plugin/Plugin.hpp 
+Plugin/Interval.o: Plugin/Interval.hpp System/SimpleMD.hpp 
+Plugin/MagneticFieldPlugin.o: Cell/Cell.hpp System/SimpleMD.hpp Mols/MonatomicMols.hpp MolCollection.hpp Cell/GridCell.hpp Plugin/MagneticfieldPlugin.hpp Mols/Mols.hpp Mols/RigidBodies2.hpp Plugin/CollectorPlugin.hpp Vector3.hpp MolProperty.hpp Mols/RigidBodies.hpp 
+System/QuenchSystem.o: QuenchSystem.hpp Plugin/CollectorPlugin.hpp 
+Unit.o: Unit.hpp 
+Interaction/Combination.o: Interaction/Combination.hpp 
+Plugin/Zumbrella.o: Vector3.hpp Mols/RigidBodies.hpp MolProperty.hpp Plugin/Zumbrella.hpp Mols/MonatomicMols.hpp MolCollection.hpp Cell/Cell.hpp System/SimpleMD.hpp Mols/Mols.hpp 
+Plugin/Log.hpp: Plugin/Plugin.hpp 
+Plugin/TReset.o: Plugin/CollectorPlugin.hpp System/SimpleMD.hpp Plugin/TReset.hpp 
+Cell/GridCell.hpp: Cell/Cell.hpp 
+Interaction/Truncation.o: Interaction/Truncation.hpp debug.hpp 

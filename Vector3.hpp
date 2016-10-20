@@ -29,6 +29,7 @@ public:
   virtual void Scale( double ratio );
   virtual void Scale( const Vector3& ratio );
   virtual Vector3* clone() const { return new Vector3(*this); }
+  virtual string print() const { return to_string(x) + string(",") + to_string(y) + string(",") + to_string(z); }
 };
 
 
