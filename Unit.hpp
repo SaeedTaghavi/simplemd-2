@@ -79,7 +79,7 @@ class Unit
    読みこむ場合は逆にかけ算になる。
    */
 public:
-  double sec, m, J, g, radian, Pa, coulomb;
+  double sec, m, J, g, radian, Pa, coulomb, Tesla;
   Unit()
     {
       //conversion coeff
@@ -90,6 +90,8 @@ public:
       radian= 1;
       Pa    = J / (m*m*m);
       coulomb = sqrt( COEFF * (SI::kilo * J / mol) );
+      Tesla = SI::kilo * g / sec / coulomb;
+      cerr << "TESLA:::" << Tesla << endl;
     }
   //custom units
   double K() const
